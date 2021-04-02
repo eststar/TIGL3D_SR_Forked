@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="00.MainApp">
+      <UniqueIdentifier>{15772170-1522-4a39-ad0a-5eebd34098e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99.Header">
+      <UniqueIdentifier>{945cd72f-d6c5-479a-8f08-7d417a723106}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="999.Etc">
+      <UniqueIdentifier>{dc7520ae-1ab3-4dcf-932b-437a85755fad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="999.Etc\리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="01.Scene">
+      <UniqueIdentifier>{04c9bb7d-2b3c-41c4-ade1-61bc2b3845a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Scene\01.Stage">
+      <UniqueIdentifier>{c4a365ba-2102-475a-a42e-5a8b64245c62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Scene\00.Logo">
+      <UniqueIdentifier>{df15ec5a-df53-4ed0-849b-3ca115afa0b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject">
+      <UniqueIdentifier>{e3d3ccd5-3297-4ac9-9ebe-7a1596b0fb31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\03.Camera">
+      <UniqueIdentifier>{d044f88d-3945-4369-8877-b90568855738}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\03.Camera\00.StaticCamera">
+      <UniqueIdentifier>{1447b070-ecaa-4903-abfe-d8d64d69ea7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\03.Camera\01.DynamicCamera">
+      <UniqueIdentifier>{6351bff6-380a-4d9f-96f7-f8f94999aa24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\01.Player">
+      <UniqueIdentifier>{c96d63ec-d90a-4870-986c-27e6b294591c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\02.Monster">
+      <UniqueIdentifier>{282f90a2-634b-4c03-ab4c-4bd9ef24e329}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\04.Terrain">
+      <UniqueIdentifier>{c310929b-887c-4048-9747-34035695ad01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\05.SkyCube">
+      <UniqueIdentifier>{fbdd8778-88be-4919-86f6-e7349e4a73d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\00.BackGround">
+      <UniqueIdentifier>{85ee283e-45da-4c59-8fa4-506bce97fe7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Layer">
+      <UniqueIdentifier>{4983e275-3eb2-453e-af05-c0a931f275f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98.Manager">
+      <UniqueIdentifier>{b98da2df-f86e-47fc-89d3-ea803689cbd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Layer\01.LogicLayer">
+      <UniqueIdentifier>{500d64ce-aacc-4f78-846d-6db8999fa7de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Layer\00.EnvirLayer">
+      <UniqueIdentifier>{cb2aa693-8916-41cf-bf30-4bd409032f3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Layer\02.UILayer">
+      <UniqueIdentifier>{c4cd8b84-2463-4c8c-b189-d20de3d15fac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98.Manager\00.CollisionMgr">
+      <UniqueIdentifier>{845a7c38-844d-4bf9-9ca0-8aa4d0d3b923}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\06.PlayerWeapon">
+      <UniqueIdentifier>{920a2780-c365-4f74-8fd6-01bf86ff4ffa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\06.PlayerWeapon\00.Gun">
+      <UniqueIdentifier>{236f2f5c-cad8-4b65-8b12-52c7e871e505}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\06.PlayerWeapon\01.Bullet">
+      <UniqueIdentifier>{a81886c3-2df3-45af-b3e0-20495987e56f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\07.MosterWeapon">
+      <UniqueIdentifier>{ba55354c-0d7e-4856-a6bd-cec20810af33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\08.Object">
+      <UniqueIdentifier>{53f80000-cde7-40da-aefc-95a47ced4ceb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\08.Object\TestPyramid">
+      <UniqueIdentifier>{004bcff6-60e7-4081-a1f5-a872d7995633}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\06.PlayerWeapon\01.Bullet\00.Basic">
+      <UniqueIdentifier>{398693d5-f66c-478b-a4b3-ea7a5bd55d45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\06.PlayerWeapon\01.Bullet\01.Big">
+      <UniqueIdentifier>{af187827-de8c-400e-9b62-07dc4e8f3b2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\06.PlayerWeapon\01.Bullet\02.Ice">
+      <UniqueIdentifier>{0214ab4f-4424-429e-b3a4-becd6ca88f48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\06.PlayerWeapon\01.Bullet\99.Ray">
+      <UniqueIdentifier>{5d2ff4fa-ab79-46b8-a241-1503cbba9b41}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>99.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\MainApp.h">
+      <Filter>00.MainApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Define.h">
+      <Filter>99.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>999.Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>999.Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>999.Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\Terrain.h">
+      <Filter>03.GameObject\04.Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\BackGround.h">
+      <Filter>03.GameObject\00.BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\Player.h">
+      <Filter>03.GameObject\01.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\SkyCube.h">
+      <Filter>03.GameObject\05.SkyCube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\Logo.h">
+      <Filter>01.Scene\00.Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\Stage.h">
+      <Filter>01.Scene\01.Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\StaticCamera.h">
+      <Filter>03.GameObject\03.Camera\00.StaticCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\DynamicCamera.h">
+      <Filter>03.GameObject\03.Camera\01.DynamicCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\Monster.h">
+      <Filter>03.GameObject\02.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\LogicLayer.h">
+      <Filter>02.Layer\01.LogicLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\EnvirLayer.h">
+      <Filter>02.Layer\00.EnvirLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\UILayer.h">
+      <Filter>02.Layer\02.UILayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\Gun.h">
+      <Filter>03.GameObject\06.PlayerWeapon\00.Gun</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\CollisionMgr.h">
+      <Filter>98.Manager\00.CollisionMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\MonsterBullet.h">
+      <Filter>03.GameObject\07.MosterWeapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\TestPyramid.h">
+      <Filter>03.GameObject\08.Object\TestPyramid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\Bullet.h">
+      <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\00.Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\BigBullet.h">
+      <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\01.Big</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\IceBullet.h">
+      <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\02.Ice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\Ray.h">
+      <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\99.Ray</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Code\MainApp.cpp">
+      <Filter>00.MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>999.Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>999.Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SkyCube.cpp">
+      <Filter>03.GameObject\05.SkyCube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Terrain.cpp">
+      <Filter>03.GameObject\04.Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BackGround.cpp">
+      <Filter>03.GameObject\00.BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player.cpp">
+      <Filter>03.GameObject\01.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Logo.cpp">
+      <Filter>01.Scene\00.Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Stage.cpp">
+      <Filter>01.Scene\01.Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\StaticCamera.cpp">
+      <Filter>03.GameObject\03.Camera\00.StaticCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\DynamicCamera.cpp">
+      <Filter>03.GameObject\03.Camera\01.DynamicCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Monster.cpp">
+      <Filter>03.GameObject\02.Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\LogicLayer.cpp">
+      <Filter>02.Layer\01.LogicLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\EnvirLayer.cpp">
+      <Filter>02.Layer\00.EnvirLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UILayer.cpp">
+      <Filter>02.Layer\02.UILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Gun.cpp">
+      <Filter>03.GameObject\06.PlayerWeapon\00.Gun</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CollisionMgr.cpp">
+      <Filter>98.Manager\00.CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MonsterBullet.cpp">
+      <Filter>03.GameObject\07.MosterWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TestPyramid.cpp">
+      <Filter>03.GameObject\08.Object\TestPyramid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Bullet.cpp">
+      <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\00.Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BigBullet.cpp">
+      <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\01.Big</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\IceBullet.cpp">
+      <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\02.Ice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Ray.cpp">
+      <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\99.Ray</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Client.rc">
+      <Filter>999.Etc\리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>999.Etc\리소스 파일</Filter>
+    </Image>
+    <Image Include="Client.ico">
+      <Filter>999.Etc\리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt">
+      <Filter>999.Etc</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
