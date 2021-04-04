@@ -39,7 +39,7 @@ HRESULT CHPBar::Ready_Object()
 	
 	for (int i = 0; i < 5; ++i)
 	{
-		m_pTransformCom[i]->Set_Pos(&_vec3(-0.9f + (i * fSize), 0.85f, 0.f));
+		m_pTransformCom[i]->Set_Pos(&_vec3(-0.9f + (i * (fSize * 1.2f)), 0.85f, 0.f));
 		m_pTransformCom[i]->Set_Scale(&_vec3(fSize * ((float)WINCY / WINCX), fSize, 0.f));
 		m_iDrawCnt[i] = 4;
 	}
