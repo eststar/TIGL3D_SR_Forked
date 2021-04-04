@@ -10,6 +10,9 @@ END
 
 class CUILayer : public Engine::CLayer
 {
+public:
+	enum {};
+
 private:
 	explicit CUILayer();
 	virtual ~CUILayer();

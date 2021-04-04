@@ -95,15 +95,24 @@ void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9 & pGraphicDev)
 void CRenderer::Render_UI(LPDIRECT3DDEVICE9 & pGraphicDev)
 {
 	_matrix matView, matProj, matDefault;
-
 	pGraphicDev->GetTransform(D3DTS_VIEW, &matView);
 	pGraphicDev->GetTransform(D3DTS_PROJECTION, &matProj);
 
 	D3DXMatrixIdentity(&matDefault);
 	//원근감을 없애기 위해 뷰스페이스 변환이랑 투영변환은 항등상태로 변경
 	pGraphicDev->SetTransform(D3DTS_VIEW, &matDefault);
+
+	//완전 항등이면 안되고 종횡비는 곱해서 만들어야 함
 	pGraphicDev->SetTransform(D3DTS_PROJECTION, &matDefault);
 
+	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+
+	pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+	pGraphicDev->SetRenderState(D3DRS_ALPHAREF, 0xc0);
+	pGraphicDev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+	
 	for (auto& iter : m_RenderGroup[RENDER_UI])
 	{
 		iter->Render_Object();
@@ -114,4 +123,9 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9 & pGraphicDev)
 	//다시 원래의 행렬로 돌려놓기
 	pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
 	pGraphicDev->SetTransform(D3DTS_PROJECTION, &matProj);
+
+	//알파테스트 OFF
+	pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+	//알파블렌딩 OFF
+	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 }

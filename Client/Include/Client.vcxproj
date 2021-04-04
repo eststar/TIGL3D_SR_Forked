@@ -163,6 +163,7 @@
     <ClInclude Include="..\Code\Bullet.h" />
     <ClInclude Include="..\Code\CollisionMgr.h" />
     <ClInclude Include="..\Code\DynamicCamera.h" />
+    <ClInclude Include="..\Code\Effect.h" />
     <ClInclude Include="..\Code\EnvirLayer.h" />
     <ClInclude Include="..\Code\Gun.h" />
     <ClInclude Include="..\Code\IceBullet.h" />
@@ -176,8 +177,10 @@
     <ClInclude Include="..\Code\SkyCube.h" />
     <ClInclude Include="..\Code\Stage.h" />
     <ClInclude Include="..\Code\StaticCamera.h" />
+    <ClInclude Include="..\Code\HPBar.h" />
     <ClInclude Include="..\Code\Terrain.h" />
     <ClInclude Include="..\Code\TestPyramid.h" />
+    <ClInclude Include="..\Code\UI.h" />
     <ClInclude Include="..\Code\UILayer.h" />
     <ClInclude Include="..\Header\Define.h" />
     <ClInclude Include="Client.h" />
@@ -191,6 +194,7 @@
     <ClCompile Include="..\Code\Bullet.cpp" />
     <ClCompile Include="..\Code\CollisionMgr.cpp" />
     <ClCompile Include="..\Code\DynamicCamera.cpp" />
+    <ClCompile Include="..\Code\Effect.cpp" />
     <ClCompile Include="..\Code\EnvirLayer.cpp" />
     <ClCompile Include="..\Code\Gun.cpp" />
     <ClCompile Include="..\Code\IceBullet.cpp" />
@@ -204,8 +208,10 @@
     <ClCompile Include="..\Code\SkyCube.cpp" />
     <ClCompile Include="..\Code\Stage.cpp" />
     <ClCompile Include="..\Code\StaticCamera.cpp" />
+    <ClCompile Include="..\Code\HPBar.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
     <ClCompile Include="..\Code\TestPyramid.cpp" />
+    <ClCompile Include="..\Code\UI.cpp" />
     <ClCompile Include="..\Code\UILayer.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="stdafx.cpp">

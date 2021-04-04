@@ -76,6 +76,13 @@ void Engine::CInputDev::Update_InputDev()
 		m_ulKey |= KEY_SPACE;
 	if (GetAsyncKeyState(VK_TAB) & 0x8000)
 		m_ulKey |= KEY_TAB;
+
+	if (GetAsyncKeyState('Q') & 0x8000)
+		m_ulKey |= KEY_Q;
+	if (GetAsyncKeyState('E') & 0x8000)
+		m_ulKey |= KEY_E;
+	if (GetAsyncKeyState('C') & 0x8000)
+		m_ulKey |= KEY_C;
 }
 
 _bool CInputDev::Key_Up(_ulong ulKey)

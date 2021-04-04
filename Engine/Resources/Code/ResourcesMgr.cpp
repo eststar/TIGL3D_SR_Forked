@@ -20,6 +20,7 @@ Engine::CResources* CResourcesMgr::Clone(const _ushort& wContainerIdx, const _tc
 		return nullptr;
 
 	CResources*	pPrototype = Find_Resources(wContainerIdx, pResourceTag);
+	NULL_CHECK_RETURN(pPrototype, nullptr);
 
 	return pPrototype->Clone();
 }

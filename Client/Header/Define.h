@@ -49,16 +49,21 @@ enum LOGIC_ID {
 };
 
 enum UI_ID {
+	UI_LOGO,
 	UI_PLAYER,
+	UI_EFFECT,
 	UI_END
 };
 
+/* Struct */
+typedef struct tagFrameInfo {
+	float fFrameStart;
+	float fFrameEnd;
+}FRAME;
 
 /* Extern */
 extern HWND			g_hWnd;
 extern HINSTANCE	g_hInst;
 
 const float			g_Gravity = 9.8f;
-
-
 #endif // Define_h__

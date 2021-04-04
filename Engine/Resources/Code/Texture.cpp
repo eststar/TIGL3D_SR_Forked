@@ -30,7 +30,6 @@ HRESULT Engine::CTexture::Ready_Texture(const _tchar* pPath, TEXTUREID eType, co
 {
 	m_vecTexture.reserve(iCnt);
 
-
 	IDirect3DBaseTexture9*		pTexture = nullptr;
 
 	for (_uint i = 0; i < iCnt; ++i)

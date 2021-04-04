@@ -13,8 +13,11 @@ private:
 	virtual ~CTexture();
 
 public:
-	HRESULT		Ready_Texture(const _tchar* pPath, TEXTUREID eType, const _uint& iCnt);
-	void		Set_Texture(const _uint& iIndex = 0);
+	const _uint&	Get_TextureSize() { return m_vecTexture.size(); }
+	void			Set_Texture(const _uint& iIndex = 0);
+
+public:
+	HRESULT			Ready_Texture(const _tchar* pPath, TEXTUREID eType, const _uint& iCnt);
 
 private:
 	vector<IDirect3DBaseTexture9*>				m_vecTexture;

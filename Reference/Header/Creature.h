@@ -13,6 +13,7 @@ protected:
 
 public:
 	const _int&			Get_HP()  { return m_iHP; }
+	const _int&			Get_MaxHP() { return m_iMaxHP; }
 	const _int&			Get_Att() { return m_iAtt; }
 	const _int&			Get_Def() { return m_iDef; }
 

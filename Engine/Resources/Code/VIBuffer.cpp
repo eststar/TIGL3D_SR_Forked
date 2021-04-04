@@ -19,6 +19,7 @@ Engine::CVIBuffer::CVIBuffer(const CVIBuffer& rhs)
 	, m_dwVtxCnt(rhs.m_dwVtxCnt)
 	, m_dwVtxSize(rhs.m_dwVtxSize)
 	, m_dwIdxSize(rhs.m_dwIdxSize)	
+	, m_dwIdxFmt(rhs.m_dwIdxFmt)
 {
 	m_pVB->AddRef();
 	m_pIB->AddRef();
@@ -59,7 +60,6 @@ void CVIBuffer::Render_Buffers()
 	m_pGraphicDev->SetFVF(m_dwFVF);
 	m_pGraphicDev->SetIndices(m_pIB);
 	m_pGraphicDev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_dwVtxCnt, 0, m_dwTriCnt);
-	
 }
 
 void Engine::CVIBuffer::Free()

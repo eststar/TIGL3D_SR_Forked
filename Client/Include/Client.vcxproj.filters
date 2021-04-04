@@ -83,9 +83,6 @@
     <Filter Include="03.GameObject\08.Object">
       <UniqueIdentifier>{53f80000-cde7-40da-aefc-95a47ced4ceb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.GameObject\08.Object\TestPyramid">
-      <UniqueIdentifier>{004bcff6-60e7-4081-a1f5-a872d7995633}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03.GameObject\06.PlayerWeapon\01.Bullet\00.Basic">
       <UniqueIdentifier>{398693d5-f66c-478b-a4b3-ea7a5bd55d45}</UniqueIdentifier>
     </Filter>
@@ -97,6 +94,30 @@
     </Filter>
     <Filter Include="03.GameObject\06.PlayerWeapon\01.Bullet\99.Ray">
       <UniqueIdentifier>{5d2ff4fa-ab79-46b8-a241-1503cbba9b41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\08.Object\00.Pyramid">
+      <UniqueIdentifier>{5349bf73-933c-417f-884e-3144008f97e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\08.Object\TestPyramid">
+      <UniqueIdentifier>{004bcff6-60e7-4081-a1f5-a872d7995633}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\09.UI">
+      <UniqueIdentifier>{887387c6-f6d5-4a0f-9d69-046d84ec756b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\09.UI\00.Logo">
+      <UniqueIdentifier>{1467e5e1-3ddc-430b-8af0-2310b58eed0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\10.Effect">
+      <UniqueIdentifier>{7337f0c6-4d7c-4f6e-a50e-3d1efbea121b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\09.UI\UI_Player">
+      <UniqueIdentifier>{21040e0e-f73b-4b54-9874-cc75b34102f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\09.UI\UI_Player\00.HPBar">
+      <UniqueIdentifier>{893fb210-cd82-41c3-97e2-f604d1de491b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\09.UI\UI_Player\01.ItemStat">
+      <UniqueIdentifier>{e7be6274-fe19-42bc-a82b-a05edbdff69e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +199,15 @@
     <ClInclude Include="..\Code\Ray.h">
       <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\99.Ray</Filter>
     </ClInclude>
+    <ClInclude Include="..\Code\Effect.h">
+      <Filter>03.GameObject\10.Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\UI.h">
+      <Filter>03.GameObject\09.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\HPBar.h">
+      <Filter>03.GameObject\09.UI\UI_Player\00.HPBar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -248,6 +278,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\Ray.cpp">
       <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\99.Ray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Effect.cpp">
+      <Filter>03.GameObject\10.Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI.cpp">
+      <Filter>03.GameObject\09.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\HPBar.cpp">
+      <Filter>03.GameObject\09.UI\UI_Player\00.HPBar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

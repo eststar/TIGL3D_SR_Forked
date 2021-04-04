@@ -12,12 +12,14 @@
 #include "SkyCube.h"
 #include "BackGround.h"
 #include "Terrain.h"
-#include "StaticCamera.h"
+#include "StaticCamera.h" 
 #include "Player.h"
 #include "Monster.h"
 #include "Bullet.h"
 #include "TestPyramid.h"
 
+#include "HPBar.h"
+#include "ItemStat.h"
 
 USING(Engine)
 
@@ -46,8 +48,8 @@ HRESULT CStage::Ready_Scene()
 	if (FAILED(Ready_Layer_GameLogic(LAYER_LOGIC)))
 		return E_FAIL;
 
-	//if (FAILED(Ready_Layer_UI(LAYER_UI)))
-	//	return E_FAIL;
+	if (FAILED(Ready_Layer_UI(LAYER_UI)))
+		return E_FAIL;
 
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
@@ -94,6 +96,13 @@ HRESULT CStage::Ready_Resource(LPDIRECT3DDEVICE9& pGraphicDev)
 	//몬스터 이미지
 	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_Monster", Engine::TEX_NORMAL, L"../../Resource/Texture/Monster/MiniOctopus/png/%d.png", 2), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_MonsterBullet", Engine::TEX_NORMAL, L"../../Resource/Texture/Monster/Bullet/png/%d.png", 2), E_FAIL);
+
+	//UI
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_PLAYER, L"PlayerHP", Engine::TEX_NORMAL, L"../../Resource/Texture/UI/Heart/%d.png", 5), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_PLAYER, L"ItemStat", Engine::TEX_NORMAL, L"../../Resource/Texture/UI/ItemStat/%d.png", 13), E_FAIL);
+	
+	//Effect
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Explosion", Engine::TEX_NORMAL, L"../../Resource/Texture/UI/Effect/Explosion/%d.png", 5), E_FAIL);
 
 	return S_OK;
 }
@@ -156,10 +165,10 @@ HRESULT CStage::Ready_Layer_UI(LAYERID eLayerID)
 	
 	Engine::CGameObject*		pGameObject = nullptr;
 
-	pGameObject = CGun::Create(m_pGraphicDev);
+	pGameObject = CHPBar::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(UI_PLAYER, pGameObject), E_FAIL);
-	
+
 	m_mapLayer.emplace(eLayerID, pLayer);
 
 	return S_OK;
@@ -171,6 +180,8 @@ CStage* CStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	if (FAILED(pInstance->Ready_Scene()))
 		Safe_Release(pInstance);
+
+
 
 	return pInstance;
 }
