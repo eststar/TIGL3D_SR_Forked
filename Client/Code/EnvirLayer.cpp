@@ -47,4 +47,19 @@ CEnvirLayer * CEnvirLayer::Create(_int iVecSize)
 void CEnvirLayer::Free()
 {
 	CLayer::Free();
+
+	for (_uint i = 0; i < m_VecTerrain.size(); i++)
+	{
+		Safe_Delete(m_VecTerrain[i]);
+	}
+	m_VecTerrain.clear();
+	m_VecTerrain.shrink_to_fit();
+
+	for (_uint i = 0; i < m_VecTerrainInfo.size(); i++)
+	{
+		Safe_Delete(m_VecTerrainInfo[i]);
+	}
+	m_VecTerrainInfo.clear();
+	m_VecTerrainInfo.shrink_to_fit();
+
 }

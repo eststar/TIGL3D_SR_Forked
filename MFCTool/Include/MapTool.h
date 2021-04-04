@@ -1,12 +1,11 @@
 	#pragma once
 
-#include "Define.h"
 #include "afxwin.h"
-#include "Engine_Define.h"
 #include "afxcmn.h"
 // CMapTool 대화 상자입니다.
+#include "Engine_Define.h"
+#include "Define.h"
 
-class CMainApp_Tool;
 class CMapTool : public CDialog
 {
 	DECLARE_DYNAMIC(CMapTool)

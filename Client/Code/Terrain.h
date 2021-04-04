@@ -11,7 +11,8 @@ class CHTerrainTex;
 class CTexture;
 class CRenderer;
 class CTransform;
-
+class CResources;
+class CComponent;
 END
 class CTerrain : public Engine::CGameObject
 {
@@ -39,6 +40,7 @@ private:
 
 public:
 	static CTerrain*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static HRESULT		Load_Terrain(LPDIRECT3DDEVICE9& pGraphicDev, const _tchar* pPath, vector<Engine::TERRAININFO*>& rVecTerrainInfo, vector<CGameObject*>& rVecTerrain);
 
 public:
 	void					Free() override;

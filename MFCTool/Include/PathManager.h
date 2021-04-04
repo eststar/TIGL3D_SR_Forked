@@ -3,6 +3,8 @@
 
 
 // CPathManager 대화 상자입니다.
+#include "Engine_Define.h"
+#include "Define.h"
 
 class CPathManager : public CDialog
 {

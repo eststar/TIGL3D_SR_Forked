@@ -43,6 +43,11 @@ public:
 								const _tchar* pPath, 
 								const _uint& iCnt = 1);
 
+public:
+	//새로운 버퍼 추가용
+	HRESULT			ADD_Buffer(LPDIRECT3DDEVICE9& pGraphicDev, const _ushort & wContainerIdx
+		, const _tchar * pBufferTag, BUFFERID eID, const _ulong & dwCntX, const _ulong & dwCntZ, const _ulong & dwVtxItv);
+
 private:
 	CResources*		Find_Resources(const _ushort& wContainerIdx, const _tchar* pResourceTag);
 

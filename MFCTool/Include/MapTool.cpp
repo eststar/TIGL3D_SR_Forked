@@ -87,7 +87,6 @@ BOOL CMapTool::OnInitDialog()
 	m_cbComponent.ResetContent();
 	m_cbComponent.InsertString(0, _T("Terrain"));
 	m_cbComponent.InsertString(1, _T("Wall"));
-	m_cbComponent.SetCurSel(m_iComboSelIndex);
 
 	m_ListBox_Texture.ResetContent();
 	m_TreeCtrl_OBJ.DeleteAllItems();
@@ -499,12 +498,23 @@ void CMapTool::OnBnClickedButtonLoad()
 			vecTempTile.emplace_back(pTempTile);
 		}
 		CloseHandle(hFile);
-
+		if (vecTempTile.empty())
+		{
+			ERR_MSG(_T("Load Failed"));
+			return;
+		}
 		//트리 비우기
 		m_TreeCtrl_OBJ.DeleteAllItems();
 		//일단 terrain만 로드 할거니까 트리에 terrain 루트에 
 		m_hTerrainItem = m_TreeCtrl_OBJ.InsertItem(_T("Terrain"), 0, 0, TVI_ROOT, TVI_LAST);
+		m_cbComponent.SetCurSel(m_iComboSelIndex);
 		m_iComboSelIndex = 0;
+
+		m_pAddName = L"Terrain_";
+		m_strPreOption1 = L"가로타일수";
+		m_strPreOption2 = L"세로타일수";
+		m_strPreOption3 = L"타일간격";
+
 		//기존 타일 벡터 비우기
 		vector<TERRAININFO*>* vecTile = &(CMainApp_Tool::GetInstance()->m_vecTile);
 		for (auto& pTile : *vecTile)
@@ -567,9 +577,9 @@ void CMapTool::OnBnClickedButtonLoad()
 			_tchar szVtxCNZ[MAX_PATH] = L"";
 			_tchar szVtxItv[MAX_PATH] = L"";
 
-			_itow_s((_int)m_dwPreOption1, szVtxCNX, 10);
-			_itow_s((_int)m_dwPreOption2, szVtxCNZ, 10);
-			_itow_s((_int)m_dwPreOption3, szVtxItv, 10);
+			_itow_s(_int((*vecTile)[i]->dwVtxCNX), szVtxCNX, 10);
+			_itow_s(_int((*vecTile)[i]->dwVtxCNZ), szVtxCNZ, 10);
+			_itow_s(_int((*vecTile)[i]->dwVtxItv), szVtxItv, 10);
 
 			lstrcat(szBuf, L"_");
 			lstrcat(szBuf, szVtxCNX);

@@ -42,9 +42,9 @@ CTerrain* CTerrain::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CTerrain::Free(void)
 {
 	CGameObject::Free();
-	Safe_Release(m_pBufferCom);
-	Safe_Release(m_pTextureCom);
-	Safe_Release(m_pTransformCom);
+	//Safe_Release(m_pBufferCom);
+	//Safe_Release(m_pTextureCom);
+	//Safe_Release(m_pTransformCom);
 }
 
 HRESULT CTerrain::Ready_Object(void)
