@@ -18,7 +18,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 
 CPlayer::~CPlayer()
 {
-
+	// OH Sibal
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
