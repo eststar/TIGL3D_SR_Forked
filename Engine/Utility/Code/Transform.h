@@ -17,6 +17,9 @@ public:
 	const	_vec3*		Get_Info(INFO eType);
 	void				Get_Info(INFO eType, _vec3* pInfo);
 	const _matrix*		Get_WorldMatrix();
+	//Get 함수 추가
+	const	_vec3*		Get_Scale();
+	const	_vec3*		Get_Angle();
 
 	//Set
 	void				Set_Matrix(const _matrix* pMatWorld);

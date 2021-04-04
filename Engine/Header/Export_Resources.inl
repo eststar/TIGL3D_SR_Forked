@@ -5,6 +5,9 @@ CResources*		Clone(const _ushort& wContainerIdx, const _tchar* pResourceTag)
 	return CResourcesMgr::GetInstance()->Clone(wContainerIdx, pResourceTag);
 }
 // Set
+inline HRESULT			ADD_Buffer(LPDIRECT3DDEVICE9& pGraphicDev, const _ushort & wContainerIdx
+	, const _tchar * pBufferTag, BUFFERID eID, const _ulong & dwCntX, const _ulong & dwCntZ, const _ulong & dwVtxItv);
+
 // General
 HRESULT		Reserve_ContainerSize(const _ushort& wSize)
 {
