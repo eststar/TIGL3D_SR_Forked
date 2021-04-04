@@ -581,7 +581,7 @@ void CMapTool::OnBnClickedButtonLoad()
 			FAILED_CHECK_RETURN(CMainApp_Tool::GetInstance()->ADD_Buffer(RESOURCE_STATIC, szBuf, Engine::BUFFER_TERRAINTEX, (*vecTile)[i]->dwVtxCNX + 1, (*vecTile)[i]->dwVtxCNZ + 1, (*vecTile)[i]->dwVtxItv), );
 
 			//府家胶 货肺 积己
-			CResources* pResource = Engine::Clone(RESOURCE_STATIC, /*pBufferName*/szBuf);
+			CResources* pResource = Engine::Clone(RESOURCE_STATIC, szBuf);
 			NULL_CHECK(pResource);
 
 			pTerrain->Set_Resource(COM_STATIC, L"Com_Buffer", pResource);

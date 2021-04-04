@@ -100,18 +100,11 @@ void CTerrain::Render_Object(void)
 
 HRESULT CTerrain::Add_Component(void)
 {
-	//동규_0330 reserve 삭제
-
-	//Engine::Reserve_ContainerSize(RESOURCE_END);
-
 	Engine::CComponent*		pComponent = nullptr;
 
 	pComponent = m_pTransformCom = Engine::CTransform::Create();
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[Engine::COM_DYNAMIC].emplace(L"Com_Transform", pComponent);
-
-
-	//FAILED_CHECK_RETURN(Engine::Ready_Buffers(m_pGraphicDev, RESOURCE_STATIC, L"Buffer_TerrainTex", Engine::BUFFER_TERRAINTEX, VTXCNTX, VTXCNTX, VTXITV), E_FAIL);
 	
 	pComponent = m_pBufferCom = dynamic_cast<Engine::CTerrainTex*>(Engine::Clone(RESOURCE_STATIC, L"Buffer_TerrainTex_1_1_1"));
 	//pComponent = m_pBufferCom = dynamic_cast<Engine::CRcTex*>(Engine::Clone(RESOURCE_STATIC, L"Buffer_RcTex"));
@@ -121,11 +114,6 @@ HRESULT CTerrain::Add_Component(void)
 	pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>(Engine::Clone(RESOURCE_STAGE, L"Texture_Grass"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[Engine::COM_STATIC].emplace(L"Com_Texture", pComponent);
-
-	//pComponent = m_pRendererCom = Engine::Get_Renderer();
-	//NULL_CHECK_RETURN(pComponent, E_FAIL);
-	//pComponent->AddRef();
-	//m_mapComponent[Engine::COM_STATIC].emplace(L"Com_Renderer", pComponent);
 
 	return S_OK;
 }

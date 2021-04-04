@@ -24,6 +24,9 @@ public:
 	_int Update_Object(const _float& fTimeDelta)	 override;
 	void LateUpdate_Object(const _float& fTimeDelta) override;
 	void Render_Object()							 override;
+public:
+	void	Set_Component(COMPONENTID eCOMID, const _tchar* strCOMTag, CComponent* pCom);
+	void	Set_Resource(COMPONENTID eCOMID, const _tchar* strCOMTag, CResources* pResource);
 
 private:
 	HRESULT		Add_Component();

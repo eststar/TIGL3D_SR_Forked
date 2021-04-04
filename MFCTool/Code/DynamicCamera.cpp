@@ -13,7 +13,7 @@ CDynamicCamera::CDynamicCamera(LPDIRECT3DDEVICE9 pGraphicDev)
 
 CDynamicCamera::~CDynamicCamera(void)
 {
-	//Free();
+
 }
 
 CDynamicCamera* CDynamicCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev,
@@ -38,6 +38,8 @@ void CDynamicCamera::Free(void)
 
 HRESULT CDynamicCamera::Ready_Object(const _vec3* pEye, const _vec3* pAt, const _vec3* pUp, const _float& fAspect, const _float& fFovY, const _float& fNear, const _float& fFar)
 {
+	m_pObjTag = L"DynamicCamera";
+
 	m_vEye = *pEye;
 	m_vAt = *pAt;
 	m_vUp = *pUp;
@@ -72,12 +74,9 @@ HRESULT CDynamicCamera::Add_Component(void)
 {
 	Engine::CComponent*		pComponent = nullptr;
 
-
-
 	/*pComponent = m_pTransformCom = Engine::CTransform::Create();
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[Engine::COM_DYNAMIC].emplace(L"Com_Transform", pComponent);*/
-
 
 	return S_OK;
 }
