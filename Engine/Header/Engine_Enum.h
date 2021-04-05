@@ -48,6 +48,7 @@ namespace Engine
 						  RENDER_UI, 
 						  RENDER_END };
 
+	//0406 지형 옵션 확인용
 	enum TERRAINTYPE
 	{
 		TYPE_FLOOR, TYPE_WALL, TYPE_END,

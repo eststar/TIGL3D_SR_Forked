@@ -119,7 +119,7 @@ HRESULT CResourcesMgr::Ready_Textures(LPDIRECT3DDEVICE9& pGraphicDev, const _ush
 	return S_OK;
 }
 
-//새로운 버퍼 추가용
+//0406_새로운 버퍼 추가용
 HRESULT CResourcesMgr::ADD_Buffer(LPDIRECT3DDEVICE9& pGraphicDev, const _ushort & wContainerIdx, const _tchar * pBufferTag, BUFFERID eID, const _ulong & dwCntX, const _ulong & dwCntZ, const _ulong & dwVtxItv)
 {
 	if (nullptr == m_pmapResources)

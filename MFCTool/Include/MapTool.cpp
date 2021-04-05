@@ -237,6 +237,10 @@ void CMapTool::OnBnClickedButtonADD()
 		pTileInfo->byOption		= OPTION_BLOCKED;
 		pTileInfo->byType			= TYPE_FLOOR;
 
+		pTerrain->m_dwIndex = pTileInfo->dwIndex;
+		pTerrain->m_byOption = pTileInfo->byOption;
+		pTerrain->m_byType = pTileInfo->byType;
+
 		//컨테이너에 추가
 		(CMainApp_Tool::GetInstance()->m_pvecTerrain)->emplace_back(pObject);
 		(CMainApp_Tool::GetInstance()->m_vecTile).emplace_back(pTileInfo);
@@ -558,11 +562,6 @@ void CMapTool::OnBnClickedButtonLoad()
 			vecTempTile.emplace_back(pTempTile);
 		}
 		CloseHandle(hFile);
-		if (vecTempTile.empty())
-		{
-			ERR_MSG(_T("Load Failed"));
-			return;
-		}
 		//트리 비우기
 		m_TreeCtrl_OBJ.DeleteAllItems();
 		//일단 terrain만 로드 할거니까 트리에 terrain 루트에 
@@ -600,6 +599,9 @@ void CMapTool::OnBnClickedButtonLoad()
 		}
 		pvecTerrain->reserve(vecTile->size());
 
+		if (vecTempTile.empty())
+			return;
+
 		UpdateData(TRUE);
 		m_cbComponent.SetCurSel(m_iComboSelIndex);
 		m_iComboSelIndex = 0;
@@ -633,6 +635,9 @@ void CMapTool::OnBnClickedButtonLoad()
 			pTransform->Set_Pos(&vPos);
 			pTransform->Set_Scale(&vSize);
 			pTransform->Set_Angle(&vRotation);
+			pTerrain->m_dwIndex = (*vecTile)[i]->dwIndex;
+			pTerrain->m_byOption = (*vecTile)[i]->byOption;
+			pTerrain->m_byType = (*vecTile)[i]->byType;
 
 			//CTerrain의 멤버 변수인 컴포넌트들을 여기서 업데이트 해도 object가 가진 맵컨테이너에 들은 컴포넌트들은 안바뀜.
 			//그래서 Cterrain의 컴포넌트를 기존의 컴포넌트를 지우고 맵컨테이너에 다시 넣음

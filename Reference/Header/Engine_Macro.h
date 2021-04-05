@@ -3,6 +3,8 @@
 
 namespace Engine
 {
+
+	//0406_MFC에서 MessageBox 사용 불가해서 조건부로 재정의
 #ifdef _AFX
 #define ERR_MSG(Message) AfxMessageBox(Message)
 

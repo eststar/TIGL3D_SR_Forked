@@ -41,11 +41,21 @@ public:
 	//list<_tchar*>			m_lstTagNames;
 	_bool								m_bShowTexture	= false;
 	_ulong							m_dwFillmode		= D3DFILL_WIREFRAME;
-	_byte								m_byOption			= 0;
+
+	_ulong							m_dwIndex			= 0;
+	_byte								m_byOption			= OPTION_BLOCKED;
 	_byte								m_byType				= TYPE_FLOOR;
 public:
 	void	Set_Component(COMPONENTID eCOMID, const _tchar* strCOMTag, CComponent* pCom);
 	void	Set_Resource(COMPONENTID eCOMID, const _tchar* strCOMTag, CResources* pResource);
+
+	void Set_Option(_byte byOption) { m_byOption = byOption; }
+	void Set_Type(_byte byType) { m_byType = byType; }
+	void Set_Index(_ulong dwIndex) { m_dwIndex = dwIndex; }
+
+	const _byte Get_Option() { return m_byOption; }
+	const _byte Get_Type() { return m_byType; }
+	const _ulong Get_Index() { return m_dwIndex; }
 
 	//map<const _tchar*, CComponent*>* 	Get_mapCOM(COMPONENTID eCOMID);
 public:

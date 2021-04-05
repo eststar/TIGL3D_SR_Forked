@@ -4,10 +4,6 @@
 #include "Define.h"
 #include "Scene.h"
 
-BEGIN(Engine)
-class CResources;
-class CComponent;
-END
 
 class CStage : public Engine::CScene
 {
@@ -21,12 +17,8 @@ public:
 	void LateUpdate_Scene(const _float& fTimeDelta) override;
 	void Render_Scene()								override;
 public:
-	HRESULT		Load_Terrain(LPDIRECT3DDEVICE9& rpGraphicDev, CLayer*&	pLayer, const _tchar* pPath);
-
-private:
-	vector<Engine::TERRAININFO*>		m_VecTerrainInfo;
-	vector<Engine::CGameObject*>		m_VecTerrain;
-
+	//0406_지형 로드 함수
+	HRESULT		Load_Terrain(LPDIRECT3DDEVICE9& rpGraphicDev, CLayer*& pLayer, const _tchar* pPath);
 private:
 	HRESULT				Ready_Resource(LPDIRECT3DDEVICE9& pGraphicDev);
 	HRESULT				Ready_Layer_Enviroment(LAYERID eLayerID);

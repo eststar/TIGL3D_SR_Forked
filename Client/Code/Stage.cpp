@@ -72,7 +72,7 @@ void CStage::Render_Scene()
 {
 	// Debug용
 }
-
+//0406_지형로드 함수
 HRESULT CStage::Load_Terrain(LPDIRECT3DDEVICE9& rpGraphicDev, CLayer*&	pLayer, const _tchar * pPath)
 {
 	HANDLE hFile = CreateFile(pPath, GENERIC_READ, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
@@ -136,6 +136,10 @@ HRESULT CStage::Load_Terrain(LPDIRECT3DDEVICE9& rpGraphicDev, CLayer*&	pLayer, c
 		// 가진 COM들의 데이터 변경
 		//트랜스폼
 
+		pTerrain->Set_Index(m_VecTerrainInfo[i]->dwIndex);
+		pTerrain->Set_Option(m_VecTerrainInfo[i]->byOption);
+		pTerrain->Set_Type(m_VecTerrainInfo[i]->byType);
+
 		Engine::CComponent*		pComponent = nullptr;
 		CTransform* pTransform = Engine::CTransform::Create();
 		pComponent = pTransform;
@@ -169,7 +173,7 @@ HRESULT CStage::Load_Terrain(LPDIRECT3DDEVICE9& rpGraphicDev, CLayer*&	pLayer, c
 		FAILED_CHECK_RETURN(Engine::ADD_Buffer(rpGraphicDev, RESOURCE_STATIC, szBuf, Engine::BUFFER_TERRAINTEX
 			, m_VecTerrainInfo[i]->dwVtxCNX + 1, m_VecTerrainInfo[i]->dwVtxCNZ + 1, m_VecTerrainInfo[i]->dwVtxItv), E_FAIL);
 
-		//리소스 새로 생성
+		//리소스 클론 새로 생성
 		CResources* pResource = Engine::Clone(RESOURCE_STATIC, szBuf);
 		NULL_CHECK_RETURN(pResource, E_FAIL);
 
@@ -178,8 +182,9 @@ HRESULT CStage::Load_Terrain(LPDIRECT3DDEVICE9& rpGraphicDev, CLayer*&	pLayer, c
 		NULL_CHECK_RETURN(pObject, E_FAIL);
 
 		m_VecTerrain.push_back(pObject);
-		FAILED_CHECK_RETURN(pLayer->Add_GameObject(ENVIR_TERRAIN, pObject), E_FAIL);
 
+		//환경 레이어에 추가
+		FAILED_CHECK_RETURN(pLayer->Add_GameObject(ENVIR_TERRAIN, pObject), E_FAIL);
 	}
 
 	return S_OK;

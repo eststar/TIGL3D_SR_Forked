@@ -60,7 +60,7 @@ typedef struct tagIndex32
 
 }INDEX32;
 
-//저장용 구조체. 임시. 추후변경 가능
+//0406_저장용 구조체. 임시. 추후변경 가능
 typedef struct tagPathInformation
 {
 	const _tchar*		pPath = L"";

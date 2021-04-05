@@ -22,7 +22,7 @@
 #define DIRECTINPUT_VERSION		0x0800
 #include <dinput.h>
 
-
+//0406 DBG_NEW 부분이 MFC와 겹쳐서 조건부로 정의.
 #ifndef _AFX
 
 #ifdef _DEBUG

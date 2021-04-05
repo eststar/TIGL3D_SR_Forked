@@ -4,6 +4,13 @@ CComponent*		Get_Component(LAYERID eLayerID, const _int& iIndex, const _tchar* p
 {
 	return CManagement::GetInstance()->Get_Component(eLayerID, iIndex, pObjTag, pComponentTag, eType);
 }
+
+//0406_ManagementÂü°í
+CScene*			Get_Scene()
+{
+	return CManagement::GetInstance()->Get_Scene();
+}
+
 // Set
 HRESULT			 Add_GameObject(LAYERID eLayerID, const _int& iIndex, CGameObject* pGameObject)
 {
