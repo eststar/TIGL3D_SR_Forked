@@ -2,6 +2,8 @@
 #include "Player.h"
 
 #include "Export_Function.h"
+#include "Scene.h"
+#include "Terrain.h"
 
 USING(Engine)
 
@@ -305,11 +307,21 @@ void CPlayer::SetUp_OnTerrain()
 	_vec3	vPos;
 	m_pTransformCom->Get_Info(Engine::INFO_POS, &vPos);
 
-	Engine::CTerrainTex*		pTerrainBufferCom = dynamic_cast<Engine::CTerrainTex*>(Engine::Get_Component(Engine::LAYER_ENVIR, ENVIR_TERRAIN, L"Terrain", L"Com_Buffer", Engine::COM_STATIC));
+	//0406_동규_플레이어가 서있는 Terrain의 컴포넌트를 얻어오는 방식으로 변경. vector 컨테이너 2가지는 Scene에 넣어둠.
+	_ulong dwIndex = m_pCalculatorCom->Compute_IndexOnTerrain(&vPos, Engine::Get_Scene()->Get_VecTerrainInfo());
+	if (dwIndex ==-1)
+		return;
+	CTerrain* pTerrain = dynamic_cast<CTerrain*>(Engine::Get_Scene()->Get_VecTerrain()[dwIndex]);
+	
+	Engine::CTerrainTex*		pTerrainBufferCom = dynamic_cast<Engine::CTerrainTex*>(pTerrain->Get_Component(L"Com_Buffer", Engine::COM_STATIC));
+	//Engine::CTerrainTex*		pTerrainBufferCom = dynamic_cast<Engine::CTerrainTex*>(Engine::Get_Component(Engine::LAYER_ENVIR, ENVIR_TERRAIN, L"Terrain", L"Com_Buffer", Engine::COM_STATIC));
 	NULL_CHECK(pTerrainBufferCom);
+	_ulong dwVTXCNTX =  Engine::Get_Scene()->Get_VecTerrainInfo()[dwIndex]->dwVtxCNX;
+	_ulong dwVTXCNTZ = Engine::Get_Scene()->Get_VecTerrainInfo()[dwIndex]->dwVtxCNZ;
+	_ulong dwVTXITV = Engine::Get_Scene()->Get_VecTerrainInfo()[dwIndex]->dwVtxItv;
 
-	fHeight = m_pCalculatorCom->Compute_HeightOnTerrain(&vPos, pTerrainBufferCom->Get_VtxPos(), VTXCNTX, VTXCNTZ, VTXITV);
-	m_pTransformCom->Set_Pos(&_vec3(vPos.x, fHeight + 5.f, vPos.z));
+	fHeight = m_pCalculatorCom->Compute_HeightOnTerrain(&vPos, pTerrainBufferCom->Get_VtxPos(), dwVTXCNTX, dwVTXCNTZ, dwVTXITV);
+	m_pTransformCom->Set_Pos(&_vec3(vPos.x, fHeight +5.f, vPos.z));
 }
 
 void CPlayer::Mouse_Fix()

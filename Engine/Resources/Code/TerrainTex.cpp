@@ -52,7 +52,10 @@ HRESULT Engine::CTerrainTex::Ready_Buffers(const _ulong& dwCntX, const _ulong& d
 
 			m_pPos[dwIndex] = pVtxTex[dwIndex].vPosition;
 
-			pVtxTex[dwIndex].vTexUV = _vec2((_float(j) / (dwCntX - 1)) * 20.f, (_float(i) / (dwCntZ - 1) )* 20.f);
+			//0406_ 굳이 텍스처 하나를 확대해서 붙일 필요가 없다 생각해서 사각형 하나당 한텍스쳐 들어가도록 주석처리.
+			pVtxTex[dwIndex].vTexUV = _vec2(_float(j)/* / (dwCntX - 1)) * 20.f*/, _float(i)/* / (dwCntZ - 1))* 20.f*/);
+
+			//pVtxTex[dwIndex].vTexUV = _vec2((_float(j) / (dwCntX - 1)) * 20.f, (_float(i) / (dwCntZ - 1) )* 20.f);
 		}
 	}
 	

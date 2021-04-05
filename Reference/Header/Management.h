@@ -16,6 +16,9 @@ private:
 public:
 	CComponent*				Get_Component(LAYERID eLayerID, const _int& iIndex, const _tchar* pObjTag, const _tchar* pComponentTag, COMPONENTID eType);
 	HRESULT					Add_GameObject(LAYERID eLayerID, const _int& iIndex, CGameObject* pGameObject);
+
+	//0406 CScene에 넣어둔 지형정보 얻기 위해
+	CScene*			Get_Scene() { return m_pScene; }
 public:
 	
 	HRESULT			SetUp_Scene(CScene* pScene);

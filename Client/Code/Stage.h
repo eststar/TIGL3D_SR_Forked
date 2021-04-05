@@ -16,7 +16,9 @@ public:
 	_int Update_Scene(const _float& fTimeDelta)		override;
 	void LateUpdate_Scene(const _float& fTimeDelta) override;
 	void Render_Scene()								override;
-	
+public:
+	//0406_지형 로드 함수
+	HRESULT		Load_Terrain(LPDIRECT3DDEVICE9& rpGraphicDev, CLayer*& pLayer, const _tchar* pPath);
 private:
 	HRESULT				Ready_Resource(LPDIRECT3DDEVICE9& pGraphicDev);
 	HRESULT				Ready_Layer_Enviroment(LAYERID eLayerID);

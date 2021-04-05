@@ -2,7 +2,6 @@
 #include "EnvirLayer.h"
 
 #include "Export_Function.h"
-
 #include "CollisionMgr.h"
 
 USING(Engine)
@@ -34,6 +33,8 @@ void CEnvirLayer::LateUpdate_Layer(const _float & fTimeDelta)
 	CLayer::LateUpdate_Layer(fTimeDelta);
 }
 
+
+
 CEnvirLayer * CEnvirLayer::Create(_int iVecSize)
 {
 	CEnvirLayer*		pInstance = new CEnvirLayer;
@@ -47,4 +48,5 @@ CEnvirLayer * CEnvirLayer::Create(_int iVecSize)
 void CEnvirLayer::Free()
 {
 	CLayer::Free();
+
 }

@@ -1,4 +1,5 @@
 #include "Calculator.h"
+#include "GameObject.h"
 
 USING(Engine)
 
@@ -34,7 +35,6 @@ Engine::_float Engine::CCalculator::Compute_HeightOnTerrain(const _vec3* pPos, c
 	_float	fRatioZ = (pTerrainVtx[dwIndex + dwCntX].z - pPos->z) / dwVtxItv;
 
 	//D3DXPLANE		Plane;
-
 	//// 오른쪽 위 삼각형
 	//if (fRatioX > fRatioZ)
 	//{
@@ -51,7 +51,6 @@ Engine::_float Engine::CCalculator::Compute_HeightOnTerrain(const _vec3* pPos, c
 	//		&pTerrainVtx[dwIndex + 1],
 	//		&pTerrainVtx[dwIndex]);
 	//}
-
 	//// ax + by + cz + d 
 	//// by = -ax - cz - d
 	//// y = (-ax - cz - d) / b
@@ -76,6 +75,36 @@ Engine::_float Engine::CCalculator::Compute_HeightOnTerrain(const _vec3* pPos, c
 	{
 		return fHeight[0] + (fHeight[2] - fHeight[3]) * fRatioX + (fHeight[3] - fHeight[0]) * fRatioZ;
 	}
+}
+
+//0406 플레이어 좌표 기반으로 여러개의 CTerrain중에 어떤거에 서있는지 인덱스 얻기위해 TERRAININFO에서 찾음
+Engine::_ulong Engine::CCalculator::Compute_IndexOnTerrain(const _vec3* pPos, const vector<TERRAININFO*>& vecTerrainInfo)
+{
+	CGameObject* pObject = nullptr;
+	for (auto& iter : vecTerrainInfo)
+	{
+		//원점기준 vPos만큼 움직였고, 전체 지형크기는 X축  dwVtxCNX*dwVtxItv, Z축  dwVtxCNZ*dwVtxItv 이므로 원점기준 각각 좌상우하. 
+		if (pPos->x >= iter->vPos.x && pPos->x <= iter->vPos.x + (iter->dwVtxCNX)*(iter->dwVtxItv))
+		{
+			if (pPos->z >= iter->vPos.z && pPos->z <= iter->vPos.z + (iter->dwVtxCNZ)*(iter->dwVtxItv))
+			{
+				return iter->dwIndex;
+			}
+		}
+
+		//외않되지
+		//다만 RECT 및 POINT 이용해서 소수점부분이 날아가기 때문에 지형끝부분에서 문제가 있을 수 있음 필요하다면 예전 AABB충돌? 사각형 충돌 필요
+		//RECT rc = { _int(iter->vPos.x), (_int((iter->vPos.z) + ((iter->dwVtxCNZ)*(iter->dwVtxItv))))
+		//				,  _int((iter->vPos.x) + ((iter->dwVtxCNX)*(iter->dwVtxItv))), _int(iter->vPos.z) };
+		//POINT pt = { _int(pPos->x), _int(pPos->z)};
+		//
+		//_uint iTest = PtInRect(&rc, pt);
+		//if (PtInRect(&rc, pt))
+		//{
+		//	return iter->dwIndex;
+		//}
+	}
+	return -1;
 }
 
 Engine::CCalculator* Engine::CCalculator::Create(LPDIRECT3DDEVICE9 pGraphicDev)

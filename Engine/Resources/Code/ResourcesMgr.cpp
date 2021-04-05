@@ -119,6 +119,53 @@ HRESULT CResourcesMgr::Ready_Textures(LPDIRECT3DDEVICE9& pGraphicDev, const _ush
 	return S_OK;
 }
 
+//0406_새로운 버퍼 추가용
+HRESULT CResourcesMgr::ADD_Buffer(LPDIRECT3DDEVICE9& pGraphicDev, const _ushort & wContainerIdx, const _tchar * pBufferTag, BUFFERID eID, const _ulong & dwCntX, const _ulong & dwCntZ, const _ulong & dwVtxItv)
+{
+	if (nullptr == m_pmapResources)
+	{
+		MSG_BOX("Resourcesmgr reserve Failed");
+		return E_FAIL;
+	}
+
+	CResources*	 pResources = nullptr;
+	//CResources*	 pResources = Find_Resources(wContainerIdx, pBufferTag);
+	//if (nullptr != pResources)
+	//	return S_OK;
+
+	switch (eID)
+	{
+	case BUFFER_TRICOL:
+		break;
+	case BUFFER_RCCOL:
+		break;
+	case BUFFER_RCTEX:
+		break;
+	case BUFFER_TERRAINTEX:
+		pResources = CTerrainTex::Create(pGraphicDev, dwCntX, dwCntZ, dwVtxItv);
+		break;
+	case BUFFER_HTERRAINTEX:
+		break;
+	case BUFFER_CUBETEX:
+		break;
+	case BUFFER_TETRATEX:
+		break;
+	}
+
+	NULL_CHECK_RETURN(pResources, E_FAIL);
+
+	//_uint istrlen = lstrlen(pBufferTag) +1;
+	//_tchar* pTag = new _tchar(sizeof(_tchar)*istrlen);
+	//lstrcpy(pTag, pBufferTag);
+
+	//m_lstTagNames.emplace_back(pTag);
+	Safe_Release(m_pmapResources[wContainerIdx][pBufferTag]);
+	m_pmapResources[wContainerIdx][pBufferTag] = pResources;
+
+	return S_OK;
+}
+
+
 Engine::CResources* Engine::CResourcesMgr::Find_Resources(const _ushort& wContainerIdx, const _tchar* pResourceTag)
 {
 	MAPRESOURCES::iterator		iter = find_if(m_pmapResources[wContainerIdx].begin(),

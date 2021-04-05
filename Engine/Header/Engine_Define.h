@@ -22,6 +22,8 @@
 #define DIRECTINPUT_VERSION		0x0800
 #include <dinput.h>
 
+//0406 DBG_NEW 부분이 MFC와 겹쳐서 조건부로 정의.
+#ifndef _AFX
 
 #ifdef _DEBUG
 
@@ -36,7 +38,23 @@
 
 #endif
 #endif
+#else
 
+#ifdef _DEBUG
+
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
+#ifndef DEBUG_NEW 
+
+#define DEBUG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ ) 
+#define new DEBUG_NEW 
+
+#endif
+#endif
+
+#endif
 
 #pragma warning(disable : 4251)
 

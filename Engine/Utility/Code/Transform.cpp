@@ -39,6 +39,16 @@ const Engine::_matrix* CTransform::Get_WorldMatrix()
 {
 	return &m_matWorld;
 }
+//Get함수 추가
+const _vec3 * CTransform::Get_Angle()
+{
+	return &m_vAngle;
+}
+
+const _vec3 * CTransform::Get_Scale()
+{
+	return &m_vScale;
+}
 
 
 void CTransform::Set_Matrix(const _matrix * pMatWorld)

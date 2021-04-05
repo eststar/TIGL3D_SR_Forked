@@ -7,12 +7,13 @@
 #include "Renderer.h"
 #include "Creature.h"
 #include "Camera.h"
-
+#include "Scene.h"
 BEGIN(Engine)
 
 // Management
 // Get
 inline CComponent*		Get_Component(LAYERID eLayerID, const _int& iIndex, const _tchar* pObjTag, const _tchar* pComponentTag, COMPONENTID eType);
+inline CScene*				Get_Scene(); //0406_ManagementÂü°í
 // Set
 inline HRESULT			Add_GameObject(LAYERID eLayerID, const _int& iIndex, CGameObject* pGameObject);
 // General

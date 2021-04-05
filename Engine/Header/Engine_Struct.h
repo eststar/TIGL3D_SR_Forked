@@ -60,6 +60,31 @@ typedef struct tagIndex32
 
 }INDEX32;
 
+//0406_저장용 구조체. 임시. 추후변경 가능
+typedef struct tagPathInformation
+{
+	const _tchar*		pPath = L"";
+	const _tchar*		pObjectKey = L"";
+	const _tchar*		pStateKey = L"";
+	_int			iCount;
+}PATHINFO;
+
+typedef struct tagTerrainInformation
+{
+	_vec3	vPos;					//설치한 지형 전체 타일의 중심좌표
+	_vec3	vSize;				//지형의 한사각형을 이루는 꼭지점간의 간격배율
+	_vec3	vRotation;			//각각의 축을 기준으로 회전 Degree기준
+	_int		iBufferType;		//버퍼타입 큐브인지 평면인지?
+	_int		iDrawID;			//텍스처 이름 구별용. ex)지형0, 지형1, 지형iDrawID
+	DWORD dwVtxCNX;		//가로 정점갯수
+	DWORD dwVtxCNZ;		//세로 정점갯수
+	DWORD dwVtxItv;			//정점간간격
+	DWORD dwIndex;			//몇번째 지형인지
+	DWORD dwParentIndex;	//Astar용도?
+	BYTE	byOption;			//옵션저장용
+	BYTE	byType;				//벽인지 바닥인지종류저장용
+
+}TERRAININFO;
 
 
 END

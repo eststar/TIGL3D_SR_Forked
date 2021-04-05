@@ -14,24 +14,22 @@ protected:
 
 public:
 	virtual HRESULT			Ready_Buffers();
-	virtual void			Render_Buffers();
+	virtual void					Render_Buffers();
 
 public:
-	_pVtxBuffer				GetVtxBuffer() { return m_pVB; }
+	_pVtxBuffer					GetVtxBuffer() { return m_pVB; }
 
 protected:
 	_pVtxBuffer						m_pVB;
 	_pIdxBuffer						m_pIB;
 
-	_ulong							m_dwVtxSize;
-	_ulong							m_dwVtxCnt;
-	_ulong							m_dwFVF;
-	_ulong							m_dwTriCnt;
-
-	_ulong							m_dwIdxSize;
+	_ulong								m_dwVtxSize;
+	_ulong								m_dwVtxCnt;
+	_ulong								m_dwFVF;
+	_ulong								m_dwTriCnt;
+	_ulong								m_dwIdxSize;
 
 	D3DFORMAT						m_dwIdxFmt;
-
 public:
 	virtual void			Free();
 

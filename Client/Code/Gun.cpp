@@ -38,7 +38,7 @@ HRESULT CGun::Ready_Object()
 	m_pTransformCom->Set_Pos(&vPlayerRight);
 
 	_vec3 vDir, vPos;
-	vPos = 0.52 * vPlayerRight;
+	vPos = 0.52f * vPlayerRight;
 	vDir = vPlayerLook - vPos;
 	D3DXVec3Normalize(&m_vDir, &vPos);
 	m_fSpeed = 1.f;

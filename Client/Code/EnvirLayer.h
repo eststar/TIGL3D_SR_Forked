@@ -16,11 +16,12 @@ private:
 
 public:
 	virtual HRESULT			Ready_Layer(_int iVecSize)					override;
-	virtual  _int			Update_Layer(const _float& fTimeDelta)		override;
-	virtual  void			LateUpdate_Layer(const _float& fTimeDelta)	override;
+	virtual  _int					Update_Layer(const _float& fTimeDelta)		override;
+	virtual  void					LateUpdate_Layer(const _float& fTimeDelta)	override;
 
 public:
 	static CEnvirLayer*		Create(_int iVecSize);
+
 public:
 	void					Free() override;
 
