@@ -116,7 +116,7 @@ HRESULT CTerrain::Add_Component()
 {
 	Engine::CComponent*		pComponent = nullptr;
 
-	pComponent = m_pBufferCom = dynamic_cast<Engine::CTerrainTex*>(Engine::Clone(RESOURCE_STATIC, L"Buffer_TerrainTex"));
+	pComponent = m_pBufferCom = dynamic_cast<Engine::CTerrainTex*>(Engine::Clone(RESOURCE_STATIC, L"Buffer_TerrainTex_Default"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[Engine::COM_STATIC].emplace(L"Com_Buffer", pComponent);
 

@@ -5,9 +5,7 @@
 #include "Layer.h"
 
 BEGIN(Engine)
-class CResources;
-class CComponent;
-//class CGameObject;
+
 END
 
 class CEnvirLayer : public Engine::CLayer
@@ -21,12 +19,6 @@ public:
 	virtual  _int					Update_Layer(const _float& fTimeDelta)		override;
 	virtual  void					LateUpdate_Layer(const _float& fTimeDelta)	override;
 
-public:
-	HRESULT		Load_Terrain(LPDIRECT3DDEVICE9& pGraphicDev, const _tchar* pPath);
-
-private:
-	vector<Engine::TERRAININFO*>		m_VecTerrainInfo;
-	vector<Engine::CGameObject*>		m_VecTerrain;
 public:
 	static CEnvirLayer*		Create(_int iVecSize);
 
