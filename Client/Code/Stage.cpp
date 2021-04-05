@@ -209,7 +209,7 @@ HRESULT CStage::Ready_Resource(LPDIRECT3DDEVICE9& pGraphicDev)
 
 	//Terrain 이미지
 	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_Terrain", Engine::TEX_NORMAL, L"../../Resource/Test/Texture/Terrain/Grass_%d.tga", 2), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_Terrain_Floor", Engine::TEX_NORMAL, L"../../Client/Bin/Resource/Texture/Terrain/Floor/Floor_%d.tga", 2), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_Terrain_Floor", Engine::TEX_NORMAL, L"../../Resource/Texture/Terrain/Floor/Floor_%d.tga", 2), E_FAIL);
 
 	
 	//플레이어 이미지

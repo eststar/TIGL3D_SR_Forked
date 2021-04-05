@@ -144,7 +144,7 @@ HRESULT CMainApp_Tool::Ready_Resource(/*LPDIRECT3DDEVICE9& pGraphicDev*/)
 	Engine::Reserve_ContainerSize(RESOURCE_END);
 
 	FAILED_CHECK_RETURN(Engine::Ready_Buffers(m_pGraphicDev, RESOURCE_STATIC, L"Buffer_TerrainTex_1_1_1", Engine::BUFFER_TERRAINTEX, 1 + 1, 1 + 1, 1), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Textures(m_pGraphicDev, RESOURCE_STAGE, L"Texture_Terrain_Floor", Engine::TEX_NORMAL, L"../../Client/Bin/Resource/Texture/Terrain/Floor/Floor_%d.tga", 2), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(m_pGraphicDev, RESOURCE_STAGE, L"Texture_Terrain_Floor", Engine::TEX_NORMAL, L"../../Resource/Texture/Terrain/Floor/Floor_%d.tga", 2), E_FAIL);
 
 	return S_OK;
 }

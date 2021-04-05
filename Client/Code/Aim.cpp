@@ -31,7 +31,7 @@ HRESULT CAim::Ready_Object()
 	m_pTransformCom->Set_Pos(&_vec3(0.f, -0.01f, 0.f));
 
 	m_tFrame.fFrameStart = 0;
-	m_tFrame.fFrameEnd = m_pTextureCom->Get_TextureSize() - 1;
+	m_tFrame.fFrameEnd = m_pTextureCom->Get_TextureSize() - 1.f;
 
 	return S_OK;
 }
@@ -66,7 +66,7 @@ void CAim::Render_Object()
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pTextureCom->Set_Texture(m_tFrame.fFrameStart);
+	m_pTextureCom->Set_Texture(_uint(m_tFrame.fFrameStart));
 	
 	m_pBufferCom->Render_Buffers();
 

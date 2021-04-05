@@ -53,7 +53,7 @@ HRESULT CItemStat::Ready_Object(_tchar* pObjTag, const _vec3* pPos)
 	m_fSpeed = 10.f;
 
 	m_tFrame.fFrameStart = 0;
-	m_tFrame.fFrameEnd = m_pTexIconCom->Get_TextureSize() - 1;
+	m_tFrame.fFrameEnd = m_pTexIconCom->Get_TextureSize() - 1.f;
 
 
 	return S_OK;
