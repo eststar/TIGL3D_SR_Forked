@@ -1,8 +1,8 @@
 #ifndef Define_Tool_h__
 #define Define_Tool_h__
 
-enum PLACEMENTID
+enum TERRAINTYPE
 {
-	TERRAIN, WALL, PLACEMENT_END,
+	TYPE_TERRAIN, TYPE_WALL, TYPE_END,
 };
 #endif // Define_Tool_h__

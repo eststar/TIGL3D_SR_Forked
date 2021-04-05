@@ -29,6 +29,7 @@ CMapTool::CMapTool(CWnd* pParent /*=NULL*/)
 	, m_strPreOption2(_T(""))
 	, m_strPreOption3(_T(""))
 	, m_pAddName(_T(""))
+	, m_iTerrainNumber(-1)
 {
 	m_hTerrainItem = NULL;
 	m_hLastItem = NULL;
@@ -111,18 +112,18 @@ void CMapTool::OnCbnSelchangeComboComponent()
 	{
 		switch (m_iComboSelIndex)
 		{
-		case TERRAIN:
+		case TYPE_TERRAIN:
 		{
 			m_pAddName = L"Terrain_";
 			m_strPreOption1 = L"가로타일수";
 			m_strPreOption2 = L"세로타일수";
 			m_strPreOption3 = L"타일간격";
-
+			m_iType = TYPE_TERRAIN;
 			////size_t iFileCnt = CFileInfo::FileCount(L"../../Client/Bin/Resource/Texture/Terrain");
 			//CFileInfo::PathExtraction(L"..\\..\\Client\\Bin\\Resource\\Texture\\Terrain", m_listPathInfo);
 			break;
 		}
-		case WALL:
+		case TYPE_WALL:
 			break;
 		default:
 			break;
@@ -139,7 +140,7 @@ void CMapTool::OnBnClickedButtonADD()
 	UpdateData(TRUE);
 	switch (m_iComboSelIndex)
 	{
-	case TERRAIN:
+	case TYPE_TERRAIN:
 	{
 		//지형 및 저장데이터 클래스 생성
 		CGameObject*		pObject = CTerrain::Create(CMainApp_Tool::GetInstance()->m_pGraphicDev);
@@ -168,7 +169,14 @@ void CMapTool::OnBnClickedButtonADD()
 		//벡터 비어있으면 새로 생성
 		if ((CMainApp_Tool::GetInstance()->m_pvecTerrain) == nullptr)
 			(CMainApp_Tool::GetInstance()->m_pvecTerrain) = new vector<CGameObject*>;
+
 		_int iNumber = CMainApp_Tool::GetInstance()->m_pvecTerrain->size();
+
+		if (m_iTerrainNumber != -1)
+		{
+			iNumber = m_iTerrainNumber;
+			m_iTerrainNumber = -1;
+		}
 
 		//메인앱툴의 버퍼추가 함수로 크기 조정한 terraintex 만들어서 맵리소스에 추가해놓기
 		FAILED_CHECK_RETURN(CMainApp_Tool::GetInstance()->ADD_Buffer(RESOURCE_STATIC, /*pBufferName*/szBuf
@@ -198,7 +206,7 @@ void CMapTool::OnBnClickedButtonADD()
 		pTileInfo->dwVtxCNZ	= m_dwPreOption2;
 		pTileInfo->dwVtxItv		= m_dwPreOption3;
 		pTileInfo->byOption		= 0;
-
+		pTileInfo->byType			= TYPE_TERRAIN;
 
 		//컨테이너에 추가
 		(CMainApp_Tool::GetInstance()->m_pvecTerrain)->emplace_back(pObject);
@@ -507,13 +515,13 @@ void CMapTool::OnBnClickedButtonLoad()
 		m_TreeCtrl_OBJ.DeleteAllItems();
 		//일단 terrain만 로드 할거니까 트리에 terrain 루트에 
 		m_hTerrainItem = m_TreeCtrl_OBJ.InsertItem(_T("Terrain"), 0, 0, TVI_ROOT, TVI_LAST);
-		m_cbComponent.SetCurSel(m_iComboSelIndex);
-		m_iComboSelIndex = 0;
+		//m_cbComponent.SetCurSel(m_iComboSelIndex);
+		//m_iComboSelIndex = 0;
 
-		m_pAddName = L"Terrain_";
-		m_strPreOption1 = L"가로타일수";
-		m_strPreOption2 = L"세로타일수";
-		m_strPreOption3 = L"타일간격";
+		//m_pAddName = L"Terrain_";
+		//m_strPreOption1 = L"가로타일수";
+		//m_strPreOption2 = L"세로타일수";
+		//m_strPreOption3 = L"타일간격";
 
 		//기존 타일 벡터 비우기
 		vector<TERRAININFO*>* vecTile = &(CMainApp_Tool::GetInstance()->m_vecTile);
@@ -545,6 +553,17 @@ void CMapTool::OnBnClickedButtonLoad()
 		//로드한 INFO에 따라 CTerrain 생성후 벡터에 저장
 		for (_uint i = 0 ; i < vecTile->size();i++)
 		{
+			if ((*vecTile)[i]->byType == TYPE_TERRAIN)
+			{
+				m_cbComponent.SetCurSel(m_iComboSelIndex);
+				m_iComboSelIndex = 0;
+
+				m_pAddName = L"Terrain_";
+				m_strPreOption1 = L"가로타일수";
+				m_strPreOption2 = L"세로타일수";
+				m_strPreOption3 = L"타일간격";
+
+			}
 			//지형 객체 생성
 			CGameObject*		pObject = CTerrain::Create(CMainApp_Tool::GetInstance()->m_pGraphicDev);
 			NULL_CHECK(pObject);
@@ -601,7 +620,8 @@ void CMapTool::OnBnClickedButtonLoad()
 			//트리 박스에 추가
 			_tchar szNumber[MAX_PATH] = L"";	
 			_itow_s((_int)i, szNumber, 10);
-			_tchar szName[MAX_PATH] = L"Terrain_";
+			_tchar szName[MAX_PATH] = L"";
+			lstrcpy(szName, m_pAddName);
 			lstrcat(szName, szNumber);
 
 			_tchar	szTransform[MAX_PATH] = L"Transform";
@@ -637,6 +657,16 @@ void CMapTool::OnBnClickedButtonDelete()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	UpdateData(TRUE);
 
+	m_hSelItem = m_TreeCtrl_OBJ.GetSelectedItem();
+	HTREEITEM hParent = NULL;
+	hParent = m_TreeCtrl_OBJ.GetParentItem(m_hSelItem);
+	//선택한 아이템의 부모가 ROOT면 NULL, 선택한 아이템이 ROOT였어도 NULL
+	if (hParent !=NULL)
+		return;
+	//선택아이템의 부모가 NULL 나왔을때 선택아이템의 자식의 부모가 NULL 이면 선택아이템은 ROOT 
+	else if(m_TreeCtrl_OBJ.GetParentItem(m_TreeCtrl_OBJ.GetChildItem(m_hSelItem)) == NULL)
+		return;
+
 	CString strTile = m_TreeCtrl_OBJ.GetItemText(m_hLastItem);
 
 	_int iNameIndex = 0;
@@ -656,7 +686,8 @@ void CMapTool::OnBnClickedButtonDelete()
 	CMainApp_Tool::GetInstance()->m_pvecTerrain->pop_back();
 
 	//마지막 항목의 자식트리
-	HTREEITEM hChild = m_TreeCtrl_OBJ.GetChildItem(m_hLastItem);
+	HTREEITEM hChild = NULL;
+	hChild = m_TreeCtrl_OBJ.GetChildItem(m_hLastItem);
 	if (hChild != NULL)
 	{
 		HTREEITEM hNextChild;

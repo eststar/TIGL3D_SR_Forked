@@ -52,7 +52,8 @@ public:
 	DWORD m_dwPreOption2;
 	DWORD m_dwPreOption3;
 	int m_iComboSelIndex;
-
+	_int m_iTerrainNumber;
+	_int m_iType;
 	CString m_pAddName;
 
 	CString m_strPreOption1;

@@ -82,6 +82,7 @@ typedef struct tagTerrainInformation
 	DWORD dwIndex;			//몇번째 지형인지
 	DWORD dwParentIndex;	//Astar용도?
 	BYTE	byOption;			//옵션저장용
+	BYTE	byType;				//벽인지 바닥인지종류저장용
 
 }TERRAININFO;
 
