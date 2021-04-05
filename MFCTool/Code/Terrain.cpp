@@ -111,7 +111,7 @@ HRESULT CTerrain::Add_Component(void)
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[Engine::COM_STATIC].emplace(L"Com_Buffer", pComponent);
 
-	pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>(Engine::Clone(RESOURCE_STAGE, L"Texture_Grass"));
+	pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>(Engine::Clone(RESOURCE_STAGE, L"Texture_Terrain_Floor"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[Engine::COM_STATIC].emplace(L"Com_Texture", pComponent);
 

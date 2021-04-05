@@ -83,6 +83,8 @@ HRESULT CStage::Ready_Resource(LPDIRECT3DDEVICE9& pGraphicDev)
 
 	//Terrain 이미지
 	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_Terrain", Engine::TEX_NORMAL, L"../../Resource/Test/Texture/Terrain/Grass_%d.tga", 2), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_Terrain_Floor", Engine::TEX_NORMAL, L"../../Client/Bin/Resource/Texture/Terrain/Floor/Floor_%d.tga", 2), E_FAIL);
+
 	
 	//플레이어 이미지
 	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_Player", Engine::TEX_CUBE, L"../../Resource/Test/Texture/SkyBox/burger%d.dds", 4), E_FAIL);
@@ -114,9 +116,9 @@ HRESULT CStage::Ready_Layer_Enviroment(LAYERID eLayerID)
 
 	Engine::CGameObject*		pGameObject = nullptr;
 
-	pGameObject = CTerrain::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(ENVIR_TERRAIN, pGameObject), E_FAIL);
+	//pGameObject = CTerrain::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(dynamic_cast<CEnvirLayer*>(pLayer)->Load_Terrain(m_pGraphicDev, L"../../Data/Terrain_Stage0_Test.dat"), E_FAIL);
 
 	pGameObject = CSkyCube::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);

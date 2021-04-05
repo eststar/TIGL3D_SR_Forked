@@ -48,7 +48,7 @@ HRESULT CEffect::Ready_Object(_tchar* pObjTag, const _vec3* pPos, const _vec3* p
 
 	m_fSpeed = 10.f;
 	m_tFrame.fFrameStart = 0;
-	m_tFrame.fFrameEnd = m_pTextureCom->Get_TextureSize() - 1;
+	m_tFrame.fFrameEnd = m_pTextureCom->Get_TextureSize() - 1.f;
 
 
 	return S_OK;
