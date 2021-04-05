@@ -27,36 +27,40 @@ public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnCbnSelchangeComboComponent();
 	CComboBox m_cbComponent;
-	CListBox m_ListBox_Texture;
-	//list<PATHINFO*>		m_listPathInfo;
+	CComboBox m_cbOption;
+	CComboBox m_cbType;
 
-	afx_msg void OnBnClickedButtonADD();
+	CListBox m_ListBox_Texture;
+
 	CTreeCtrl m_TreeCtrl_OBJ;
-	afx_msg void OnTvnSelchangedTreeControl1(NMHDR *pNMHDR, LRESULT *pResult);
 	HTREEITEM m_hTerrainItem;
 	HTREEITEM m_hLastItem;
-
 	HTREEITEM m_hParentItem;
 	HTREEITEM m_hSelItem;
 	float m_fX;
 	float m_fY;
 	float m_fZ;
-	afx_msg void OnBnClickedButtonUpdateTile();
 	CButton m_chkShowTex;
-	afx_msg void OnBnClickedCheckShowtex();
-	afx_msg void OnBnClickedButtonSave();
-	afx_msg void OnBnClickedButtonLoad();
-	afx_msg void OnBnClickedButtonDelete();
-
 	DWORD m_dwPreOption1;
 	DWORD m_dwPreOption2;
 	DWORD m_dwPreOption3;
 	int m_iComboSelIndex;
 	_int m_iTerrainNumber;
-	_int m_iType;
 	CString m_pAddName;
-
 	CString m_strPreOption1;
 	CString m_strPreOption2;
 	CString m_strPreOption3;
+
+	afx_msg void OnBnClickedButtonADD();
+	afx_msg void OnTvnSelchangedTreeControl1(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnClickedButtonUpdateTile();
+	afx_msg void OnBnClickedCheckShowtex();
+	afx_msg void OnBnClickedButtonSave();
+	afx_msg void OnBnClickedButtonLoad();
+	afx_msg void OnBnClickedButtonDelete();
+
+	int m_iOption;
+	int m_iType;
+	afx_msg void OnCbnSelchangeComboOption();
+	afx_msg void OnCbnSelchangeComboType();
 };

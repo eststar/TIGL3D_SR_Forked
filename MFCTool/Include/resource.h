@@ -18,10 +18,11 @@
 #define IDC_BUTTON2                     1004
 #define IDC_TREE_CONTROL2               1005
 #define IDC_BUTTON6                     1005
+#define IDC_COMBO2                      1006
 #define IDC_EDIT2                       1007
 #define IDC_EDIT3                       1008
 #define IDC_EDIT4                       1009
-#define IDC_EDIT7                       1010
+#define IDC_COMBO3                      1010
 #define IDC_CHECK_SHOWTEX               1011
 #define IDC_BUTTON4                     1012
 #define IDC_BUTTON5                     1013
@@ -34,6 +35,8 @@
 #define IDC_TEXT1                       1020
 #define IDC_TEXT2                       1021
 #define IDC_TEXT3                       1022
+#define IDC_TEXTZ2                      1023
+#define IDC_TEXTZ3                      1024
 
 // Next default values for new objects
 // 

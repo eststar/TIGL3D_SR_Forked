@@ -30,6 +30,8 @@ CMapTool::CMapTool(CWnd* pParent /*=NULL*/)
 	, m_strPreOption3(_T(""))
 	, m_pAddName(_T(""))
 	, m_iTerrainNumber(-1)
+	, m_iOption(0)
+	, m_iType(0)
 {
 	m_hTerrainItem = NULL;
 	m_hLastItem = NULL;
@@ -62,6 +64,12 @@ void CMapTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_TEXT1, m_strPreOption1);
 	DDX_Text(pDX, IDC_TEXT2, m_strPreOption2);
 	DDX_Text(pDX, IDC_TEXT3, m_strPreOption3);
+	DDX_Control(pDX, IDC_COMBO2, m_cbOption);
+	DDX_Control(pDX, IDC_COMBO3, m_cbType);
+	DDX_CBIndex(pDX, IDC_COMBO2, m_iOption);
+	DDV_MinMaxInt(pDX, m_iOption, 0, 10);
+	DDX_CBIndex(pDX, IDC_COMBO3, m_iType);
+	DDV_MinMaxInt(pDX, m_iType, 0, 10);
 }
 
 
@@ -74,6 +82,8 @@ BEGIN_MESSAGE_MAP(CMapTool, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON4, &CMapTool::OnBnClickedButtonSave)
 	ON_BN_CLICKED(IDC_BUTTON5, &CMapTool::OnBnClickedButtonLoad)
 	ON_BN_CLICKED(IDC_BUTTON6, &CMapTool::OnBnClickedButtonDelete)
+	ON_CBN_SELCHANGE(IDC_COMBO2, &CMapTool::OnCbnSelchangeComboOption)
+	ON_CBN_SELCHANGE(IDC_COMBO3, &CMapTool::OnCbnSelchangeComboType)
 END_MESSAGE_MAP()
 
 
@@ -87,11 +97,24 @@ BOOL CMapTool::OnInitDialog()
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
 	m_cbComponent.ResetContent();
 	m_cbComponent.InsertString(0, _T("Terrain"));
-	m_cbComponent.InsertString(1, _T("Wall"));
+	m_cbComponent.SetCurSel(0);
+
+	m_cbOption.ResetContent();
+	m_cbOption.InsertString(0, _T("Blocked"));
+	m_cbOption.InsertString(1, _T("PASS"));
+	m_cbOption.SetCurSel(0);
+
+	m_cbType.ResetContent();
+	m_cbType.InsertString(0, _T("Floor"));
+	m_cbType.InsertString(1, _T("Wall"));
+	m_cbType.SetCurSel(0);
+
 
 	m_ListBox_Texture.ResetContent();
 	m_TreeCtrl_OBJ.DeleteAllItems();
 	m_hTerrainItem = m_TreeCtrl_OBJ.InsertItem(_T("Terrain"), 0, 0, TVI_ROOT, TVI_LAST);
+	//m_hWallItem = m_TreeCtrl_OBJ.InsertItem(_T("Wall"), 0, 0, TVI_ROOT, TVI_LAST);
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
@@ -103,7 +126,6 @@ void CMapTool::OnCbnSelchangeComboComponent()
 	m_ListBox_Texture.ResetContent();
 	UpdateData(TRUE);
 	m_iComboSelIndex = m_cbComponent.GetCurSel();
-
 	m_dwPreOption1 = 1;
 	m_dwPreOption2 = 1;
 	m_dwPreOption3 = 1;
@@ -112,13 +134,20 @@ void CMapTool::OnCbnSelchangeComboComponent()
 	{
 		switch (m_iComboSelIndex)
 		{
-		case TYPE_TERRAIN:
+		case TYPE_FLOOR:
 		{
 			m_pAddName = L"Terrain_";
 			m_strPreOption1 = L"가로타일수";
 			m_strPreOption2 = L"세로타일수";
 			m_strPreOption3 = L"타일간격";
-			m_iType = TYPE_TERRAIN;
+			m_cbComponent.SetCurSel(TYPE_FLOOR);
+			m_cbType.SetCurSel(0);
+
+			m_iType = TYPE_FLOOR;
+			m_cbOption.SetCurSel(m_iType);
+			m_iOption = OPTION_BLOCKED;
+			m_cbType.SetCurSel(m_iOption);
+
 			////size_t iFileCnt = CFileInfo::FileCount(L"../../Client/Bin/Resource/Texture/Terrain");
 			//CFileInfo::PathExtraction(L"..\\..\\Client\\Bin\\Resource\\Texture\\Terrain", m_listPathInfo);
 			break;
@@ -140,7 +169,7 @@ void CMapTool::OnBnClickedButtonADD()
 	UpdateData(TRUE);
 	switch (m_iComboSelIndex)
 	{
-	case TYPE_TERRAIN:
+	case TYPE_FLOOR:
 	{
 		//지형 및 저장데이터 클래스 생성
 		CGameObject*		pObject = CTerrain::Create(CMainApp_Tool::GetInstance()->m_pGraphicDev);
@@ -205,12 +234,17 @@ void CMapTool::OnBnClickedButtonADD()
 		pTileInfo->dwVtxCNX	= m_dwPreOption1;
 		pTileInfo->dwVtxCNZ	= m_dwPreOption2;
 		pTileInfo->dwVtxItv		= m_dwPreOption3;
-		pTileInfo->byOption		= 0;
-		pTileInfo->byType			= TYPE_TERRAIN;
+		pTileInfo->byOption		= OPTION_BLOCKED;
+		pTileInfo->byType			= TYPE_FLOOR;
 
 		//컨테이너에 추가
 		(CMainApp_Tool::GetInstance()->m_pvecTerrain)->emplace_back(pObject);
 		(CMainApp_Tool::GetInstance()->m_vecTile).emplace_back(pTileInfo);
+
+		m_iType = pTileInfo->byType;
+		m_cbOption.SetCurSel(m_iType);
+		m_iOption = pTileInfo->byOption;
+		m_cbType.SetCurSel(m_iOption);
 
 		//몇번째인지 이름 결정
 		_tchar szNumber[MAX_PATH] = L"";
@@ -223,8 +257,9 @@ void CMapTool::OnBnClickedButtonADD()
 
 		_tchar	szTransform[MAX_PATH] = L"Transform";
 		_tchar	szOption[MAX_PATH] = L"Option";
-		_tchar	szBuffer[MAX_PATH] = L"Buffer";
+		_tchar	szType[MAX_PATH] = L"Type";
 		_tchar	szTexture[MAX_PATH] = L"Texture";
+		_tchar	szBuffer[MAX_PATH] = L"Buffer";
 
 		_tchar	szPos[MAX_PATH] = L"Position";
 		_tchar	szSize[MAX_PATH] = L"Size";
@@ -236,8 +271,9 @@ void CMapTool::OnBnClickedButtonADD()
 		m_TreeCtrl_OBJ.InsertItem(szRotation, 0, 0, hTransform, TVI_LAST);
 
 		m_TreeCtrl_OBJ.InsertItem(szOption, 0, 0, hTerrain_Options, TVI_LAST);
-		m_TreeCtrl_OBJ.InsertItem(szBuffer, 0, 0, hTerrain_Options, TVI_LAST);
+		m_TreeCtrl_OBJ.InsertItem(szType, 0, 0, hTerrain_Options, TVI_LAST);
 		m_TreeCtrl_OBJ.InsertItem(szTexture, 0, 0, hTerrain_Options, TVI_LAST);
+		m_TreeCtrl_OBJ.InsertItem(szBuffer, 0, 0, hTerrain_Options, TVI_LAST);
 
 		m_hLastItem = hTerrain_Options;
 		break;
@@ -330,7 +366,15 @@ void CMapTool::OnTvnSelchangedTreeControl1(NMHDR *pNMHDR, LRESULT *pResult)
 	}
 	else if (strName == L"Option")
 	{
+		m_iOption = CMainApp_Tool::GetInstance()->m_vecTile[iTileIndex]->byOption;
 	}
+	else if (strName == L"Type")
+	{
+		m_iType = CMainApp_Tool::GetInstance()->m_vecTile[iTileIndex]->byType;
+	}
+	m_cbOption.SetCurSel(m_iType);
+	m_cbType.SetCurSel(m_iOption);
+
 	UpdateData(FALSE);
 
 	*pResult = 0;
@@ -358,17 +402,16 @@ void CMapTool::OnBnClickedButtonUpdateTile()
 
 	UpdateData(TRUE);
 
-	
+	//번호에 해당하는 벡터의 인덱스의 object 받아와서 다운캐스팅, 해당 객체의 컴포넌트 업데이트
+	CTerrain* pTerrain = dynamic_cast<CTerrain*>((*(CMainApp_Tool::GetInstance()->m_pvecTerrain))[iTileIndex]);
+	Engine::CComponent*		pComponent = nullptr;
+
 	if (strName == L"Position")
 	{
 		CMainApp_Tool::GetInstance()->m_vecTile[iTileIndex]->vPos.x = m_fX;
 		CMainApp_Tool::GetInstance()->m_vecTile[iTileIndex]->vPos.y = m_fY;
 		CMainApp_Tool::GetInstance()->m_vecTile[iTileIndex]->vPos.z = m_fZ;
 		
-		//번호에 해당하는 벡터의 인덱스의 object 받아와서 다운캐스팅, 해당 객체의 컴포넌트 업데이트
-		CTerrain* pTerrain = dynamic_cast<CTerrain*>((*(CMainApp_Tool::GetInstance()->m_pvecTerrain))[iTileIndex]);
-
-		Engine::CComponent*		pComponent = nullptr;
 		CTransform* pTransform = Engine::CTransform::Create();
 		pComponent = pTransform;
 		NULL_CHECK(pComponent);
@@ -383,9 +426,9 @@ void CMapTool::OnBnClickedButtonUpdateTile()
 		CMainApp_Tool::GetInstance()->m_vecTile[iTileIndex]->vSize.y = m_fY;
 		CMainApp_Tool::GetInstance()->m_vecTile[iTileIndex]->vSize.z = m_fZ;
 
-		CTerrain* pTerrain = dynamic_cast<CTerrain*>((*(CMainApp_Tool::GetInstance()->m_pvecTerrain))[iTileIndex]);
+		//CTerrain* pTerrain = dynamic_cast<CTerrain*>((*(CMainApp_Tool::GetInstance()->m_pvecTerrain))[iTileIndex]);
 
-		Engine::CComponent*		pComponent = nullptr;
+		//Engine::CComponent*		pComponent = nullptr;
 		CTransform* pTransform = Engine::CTransform::Create();
 		pComponent = pTransform;
 		NULL_CHECK(pComponent);
@@ -399,9 +442,9 @@ void CMapTool::OnBnClickedButtonUpdateTile()
 		CMainApp_Tool::GetInstance()->m_vecTile[iTileIndex]->vRotation.y = D3DXToRadian(m_fY);
 		CMainApp_Tool::GetInstance()->m_vecTile[iTileIndex]->vRotation.z = D3DXToRadian(m_fZ);
 
-		CTerrain* pTerrain = dynamic_cast<CTerrain*>((*(CMainApp_Tool::GetInstance()->m_pvecTerrain))[iTileIndex]);
+		//CTerrain* pTerrain = dynamic_cast<CTerrain*>((*(CMainApp_Tool::GetInstance()->m_pvecTerrain))[iTileIndex]);
 
-		Engine::CComponent*		pComponent = nullptr;
+		//Engine::CComponent*		pComponent = nullptr;
 		CTransform* pTransform = Engine::CTransform::Create();
 		pComponent = pTransform;
 		NULL_CHECK(pComponent);
@@ -409,9 +452,18 @@ void CMapTool::OnBnClickedButtonUpdateTile()
 		pTransform->Set_Angle(&(CMainApp_Tool::GetInstance()->m_vecTile[iTileIndex]->vRotation));
 		pTerrain->Set_Component(COM_DYNAMIC, L"Com_Transform", pTransform);
 	}
+	else if (strName == L"Option")
+	{
+		CMainApp_Tool::GetInstance()->m_vecTile[iTileIndex]->byOption = m_iOption;
+		pTerrain->m_byOption = m_iOption;
+	}
+	else if (strName == L"Type")
+	{
+		CMainApp_Tool::GetInstance()->m_vecTile[iTileIndex]->byType = m_iType;
+		pTerrain->m_byType = m_iType;
+	}
 
 	UpdateData(FALSE);
-
 }
 
 void CMapTool::OnBnClickedCheckShowtex()
@@ -549,21 +601,17 @@ void CMapTool::OnBnClickedButtonLoad()
 		pvecTerrain->reserve(vecTile->size());
 
 		UpdateData(TRUE);
+		m_cbComponent.SetCurSel(m_iComboSelIndex);
+		m_iComboSelIndex = 0;
 
 		//로드한 INFO에 따라 CTerrain 생성후 벡터에 저장
 		for (_uint i = 0 ; i < vecTile->size();i++)
 		{
-			if ((*vecTile)[i]->byType == TYPE_TERRAIN)
-			{
-				m_cbComponent.SetCurSel(m_iComboSelIndex);
-				m_iComboSelIndex = 0;
 
-				m_pAddName = L"Terrain_";
-				m_strPreOption1 = L"가로타일수";
-				m_strPreOption2 = L"세로타일수";
-				m_strPreOption3 = L"타일간격";
-
-			}
+			m_pAddName = L"Terrain_";
+			m_strPreOption1 = L"가로타일수";
+			m_strPreOption2 = L"세로타일수";
+			m_strPreOption3 = L"타일간격";
 			//지형 객체 생성
 			CGameObject*		pObject = CTerrain::Create(CMainApp_Tool::GetInstance()->m_pGraphicDev);
 			NULL_CHECK(pObject);
@@ -626,26 +674,28 @@ void CMapTool::OnBnClickedButtonLoad()
 
 			_tchar	szTransform[MAX_PATH] = L"Transform";
 			_tchar	szOption[MAX_PATH] = L"Option";
-			_tchar	szBuffer[MAX_PATH] = L"Buffer";
+			_tchar	szType[MAX_PATH] = L"Type";
 			_tchar	szTexture[MAX_PATH] = L"Texture";
+			_tchar	szBuffer[MAX_PATH] = L"Buffer";
 
 			_tchar	szPos[MAX_PATH] = L"Position";
 			_tchar	szSize[MAX_PATH] = L"Size";
 			_tchar	szRotation[MAX_PATH] = L"Rotation";
 
-			HTREEITEM		hTerrain_Options, hTransform;
-			hTerrain_Options = m_TreeCtrl_OBJ.InsertItem(szName, 0, 0, m_hTerrainItem, TVI_LAST);
+			HTREEITEM		hTerrain_Item, hTransform;
+			hTerrain_Item = m_TreeCtrl_OBJ.InsertItem(szName, 0, 0, m_hTerrainItem, TVI_LAST);
 
-			hTransform = m_TreeCtrl_OBJ.InsertItem(szTransform, 0, 0, hTerrain_Options, TVI_LAST);
+			hTransform = m_TreeCtrl_OBJ.InsertItem(szTransform, 0, 0, hTerrain_Item, TVI_LAST);
 			m_TreeCtrl_OBJ.InsertItem(szPos, 0, 0, hTransform, TVI_LAST);
 			m_TreeCtrl_OBJ.InsertItem(szSize, 0, 0, hTransform, TVI_LAST);
 			m_TreeCtrl_OBJ.InsertItem(szRotation, 0, 0, hTransform, TVI_LAST);
 
-			m_TreeCtrl_OBJ.InsertItem(szOption, 0, 0, hTerrain_Options, TVI_LAST);
-			m_TreeCtrl_OBJ.InsertItem(szBuffer, 0, 0, hTerrain_Options, TVI_LAST);
-			m_TreeCtrl_OBJ.InsertItem(szTexture, 0, 0, hTerrain_Options, TVI_LAST);
+			m_TreeCtrl_OBJ.InsertItem(szOption, 0, 0, hTerrain_Item, TVI_LAST);
+			m_TreeCtrl_OBJ.InsertItem(szType, 0, 0, hTerrain_Item, TVI_LAST);
+			m_TreeCtrl_OBJ.InsertItem(szTexture, 0, 0, hTerrain_Item, TVI_LAST);
+			m_TreeCtrl_OBJ.InsertItem(szBuffer, 0, 0, hTerrain_Item, TVI_LAST);
 
-			m_hLastItem = hTerrain_Options;
+			m_hLastItem = hTerrain_Item;
 		}
 		UpdateData(FALSE);
 	}
@@ -724,5 +774,24 @@ void CMapTool::OnBnClickedButtonDelete()
 			}
 		}
 	}
+	UpdateData(FALSE);
+}
+
+
+void CMapTool::OnCbnSelchangeComboOption()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	UpdateData(TRUE);
+	m_iOption = m_cbOption.GetCurSel();
+	UpdateData(FALSE);
+}
+
+
+void CMapTool::OnCbnSelchangeComboType()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	UpdateData(TRUE);
+	m_iType = m_cbType.GetCurSel();
 	UpdateData(FALSE);
 }

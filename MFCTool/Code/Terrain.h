@@ -41,6 +41,8 @@ public:
 	//list<_tchar*>			m_lstTagNames;
 	_bool								m_bShowTexture	= false;
 	_ulong							m_dwFillmode		= D3DFILL_WIREFRAME;
+	_byte								m_byOption			= 0;
+	_byte								m_byType				= TYPE_FLOOR;
 public:
 	void	Set_Component(COMPONENTID eCOMID, const _tchar* strCOMTag, CComponent* pCom);
 	void	Set_Resource(COMPONENTID eCOMID, const _tchar* strCOMTag, CResources* pResource);

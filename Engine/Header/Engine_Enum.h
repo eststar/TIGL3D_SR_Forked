@@ -47,6 +47,16 @@ namespace Engine
 						  RENDER_ALPHA, 
 						  RENDER_UI, 
 						  RENDER_END };
+
+	enum TERRAINTYPE
+	{
+		TYPE_FLOOR, TYPE_WALL, TYPE_END,
+	};
+
+	enum TERRAINOPTION
+	{
+		OPTION_BLOCKED, OPTION_PASS, OPTION_END,
+	};
 }
 
 #endif // Engine_Enum_h__
