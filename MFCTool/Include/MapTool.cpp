@@ -406,7 +406,7 @@ void CMapTool::OnBnClickedButtonUpdateTile()
 		pComponent = pTransform;
 		NULL_CHECK(pComponent);
 
-		pTransform->Set_Angle(&_vec3(m_fX, m_fY, m_fZ));
+		pTransform->Set_Angle(&(CMainApp_Tool::GetInstance()->m_vecTile[iTileIndex]->vRotation));
 		pTerrain->Set_Component(COM_DYNAMIC, L"Com_Transform", pTransform);
 	}
 
@@ -657,15 +657,15 @@ void CMapTool::OnBnClickedButtonDelete()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	UpdateData(TRUE);
 
-	m_hSelItem = m_TreeCtrl_OBJ.GetSelectedItem();
-	HTREEITEM hParent = NULL;
-	hParent = m_TreeCtrl_OBJ.GetParentItem(m_hSelItem);
-	//선택한 아이템의 부모가 ROOT면 NULL, 선택한 아이템이 ROOT였어도 NULL
-	if (hParent !=NULL)
-		return;
-	//선택아이템의 부모가 NULL 나왔을때 선택아이템의 자식의 부모가 NULL 이면 선택아이템은 ROOT 
-	else if(m_TreeCtrl_OBJ.GetParentItem(m_TreeCtrl_OBJ.GetChildItem(m_hSelItem)) == NULL)
-		return;
+	//m_hSelItem = m_TreeCtrl_OBJ.GetSelectedItem();
+	//HTREEITEM hParent = NULL;
+	//hParent = m_TreeCtrl_OBJ.GetParentItem(m_hSelItem);
+	////선택한 아이템의 부모가 ROOT면 NULL, 선택한 아이템이 ROOT였어도 NULL
+	//if (hParent !=NULL)
+	//	return;
+	////선택아이템의 부모가 NULL 나왔을때 선택아이템의 자식의 부모가 NULL 이면 선택아이템은 ROOT 
+	//else if(m_TreeCtrl_OBJ.GetParentItem(m_TreeCtrl_OBJ.GetChildItem(m_hSelItem)) == NULL)
+	//	return;
 
 	CString strTile = m_TreeCtrl_OBJ.GetItemText(m_hLastItem);
 
