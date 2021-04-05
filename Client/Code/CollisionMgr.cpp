@@ -102,12 +102,15 @@ void CCollisionMgr::Collision_SpherePoint(list<CGameObject*>& rDstListObject, li
 			if (Check_SpherePoint(dynamic_cast<CTransform*>(pDstObject->Get_Component(L"Com_Transform", Engine::COM_DYNAMIC)),
 								  dynamic_cast<CTransform*>(pSrcObject->Get_Component(L"Com_Transform", Engine::COM_DYNAMIC)), &vPushDist))
 			{
-				CCreature* pDstCreature = dynamic_cast<CCreature*>(pDstObject);
+				CCreature* pCreature = dynamic_cast<CCreature*>(pDstObject);
 				//자식객체가 Creature인지 확인해주는 부분 -> 태쌤이 알려주신거 한 번 적합시켜봄 (필수X)
-				if (nullptr != pDstCreature)
-					pDstCreature->Set_IsDead();
+				if (nullptr != pCreature)
+					pCreature->Set_IsDead();
 
-				//위 내용을 참고해서 필요에 따라 SrcObject도 
+				/* 0405_다영 충돌처리 추가 */
+				pCreature = dynamic_cast<CCreature*>(pSrcObject);
+				if (nullptr != pCreature)
+					pCreature->Set_IsDead();
 			}
 		}
 	}

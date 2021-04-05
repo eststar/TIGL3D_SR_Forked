@@ -20,14 +20,13 @@ private:
 	virtual ~CMonsterBullet();
 
 public:
-	HRESULT Ready_Object()								override;
+	HRESULT Ready_Object(CTransform* pTrans);
 	_int	Update_Object(const _float& fTimeDelta)		override;
 	void	LateUpdate_Object(const _float& fTimeDelta) override;
 	void	Render_Object()								override;
 
 private:
 	HRESULT		Add_Component();
-	//_int		Follow_Player(const _float& fTimeDelta);
 	void		BillBoardYaw();
 
 private:
@@ -38,13 +37,16 @@ private:
 	Engine::CRenderer*		m_pRendererCom = nullptr;
 
 	Engine::CTransform*		m_pPlayerTransformCom = nullptr;
+	Engine::CTransform*		m_pMonsterTransformCom = nullptr;
 
 	_float	m_fTimeDeltaMax;
 	_vec3	m_vPlayerPos;
 	_vec3	m_vLook;
+	_vec3	m_vDir;
+	_vec3	m_vMonsterPos;
 
 public:
-	static CMonsterBullet*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CMonsterBullet*		Create(LPDIRECT3DDEVICE9 pGraphicDev, CTransform* pTrans);
 
 public:
 	void						Free() override;

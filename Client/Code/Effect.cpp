@@ -9,6 +9,7 @@ CEffect::CEffect(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
 	, m_fSpeed(0.f)
 	, m_bIsDead(false)
+	, m_fLifeTime(0.f)
 {
 	ZeroMemory(&m_tFrame, sizeof(FRAME));
 }
@@ -61,6 +62,8 @@ Engine::_int CEffect::Update_Object(const _float& fTimeDelta)
 
 	CGameObject::Update_Object(fTimeDelta);
 
+	BillBoard();
+
 	return OBJ_NOEVENT;
 }
 
@@ -70,12 +73,11 @@ void CEffect::LateUpdate_Object(const _float & fTimeDelta)
 
 	m_tFrame.fFrameStart += m_fSpeed * fTimeDelta;
 
-	if (m_tFrame.fFrameStart >= m_tFrame.fFrameEnd)
+	if (m_tFrame.fFrameStart > m_tFrame.fFrameEnd)
 	{
 		m_tFrame.fFrameStart = m_tFrame.fFrameEnd;
 		m_bIsDead = true;
 	}
-
 	m_pRendererCom->Add_RenderGroup(RENDER_ALPHA, this);
 }
 
@@ -112,4 +114,24 @@ HRESULT CEffect::Add_Component(RESOURCEID eTextureID)
 	m_mapComponent[Engine::COM_STATIC].emplace(L"Com_Renderer", pComponent);
 
 	return S_OK;
+}
+
+void CEffect::BillBoard()
+{
+	_matrix matView, matScale;
+	D3DXMatrixIdentity(&matView);
+	D3DXMatrixIdentity(&matScale);
+
+	_vec3 vScale = *m_pTransformCom->Get_Scale();
+
+	D3DXMatrixScaling(&matScale, vScale.x, vScale.y, vScale.z);
+	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matView);
+	memset(&matView._41, 0, sizeof(_vec3));
+	D3DXMatrixInverse(&matView, 0, &matView);
+	_vec3 vPos;
+	m_pTransformCom->Get_Info(Engine::INFO_POS, &vPos);
+	_vec3 BillPos = { vPos.x, vPos.y, vPos.z };
+	memcpy(&matView._41, &BillPos, sizeof(_vec3));
+
+	m_pTransformCom->Set_Matrix(&(matScale*matView));
 }

@@ -1,9 +1,8 @@
-#ifndef Monster_h__
-#define Monster_h__
+#ifndef MiniOctopus_h__
+#define MiniOctopus_h__
 
 #include "Define.h"
 #include "Creature.h"
-#include "MonsterBullet.h"
 
 BEGIN(Engine)
 
@@ -12,14 +11,13 @@ class CTexture;
 class CTransform;
 class CRenderer;
 class CCalculator;
-class CLayer;
 
 END
-class CMonster : public Engine::CCreature
+class CMiniOctopus : public Engine::CCreature
 {
 private:
-	explicit CMonster(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CMonster();
+	explicit CMiniOctopus(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CMiniOctopus();
 
 public:
 	HRESULT Ready_Object()								override;
@@ -29,14 +27,11 @@ public:
 
 private:
 	HRESULT		Add_Component();
+	void		Frame_Move(const _float& fTimeDelta);
 	void		SetUp_OnTerrain();
 	void		Jumping(const _float& fTimeDelta);
 	_int		Follow_Player(const _float& fTimeDelta);
 	void		BillBoardYaw();
-
-private:
-	HRESULT		Create_Bullet();
-
 
 private:
 	Engine::CRcTex*			m_pBufferCom		 = nullptr;
@@ -46,6 +41,8 @@ private:
 	Engine::CCalculator*	m_pCalculatorCom	 = nullptr;
 
 private:
+	FRAME	m_tFrame;
+
 	_vec3	m_vUp;
 
 	_float	m_fJumpSpeed;
@@ -54,12 +51,8 @@ private:
 
 	_bool	m_bIsJump;
 
-	_int	m_iTextureCount;
-	_float	m_fAnimationTime;
-
-	_float	m_fBulletCoolTime;
 public:
-	static CMonster*	Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CMiniOctopus*	Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 public:
 	void				Free() override;
@@ -67,4 +60,4 @@ public:
 };
 
 
-#endif // Monster_h__
+#endif // CMiniOctopus_h__

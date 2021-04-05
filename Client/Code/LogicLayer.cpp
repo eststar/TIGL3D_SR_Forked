@@ -34,8 +34,8 @@ void CLogicLayer::LateUpdate_Layer(const _float & fTimeDelta)
 	CLayer::LateUpdate_Layer(fTimeDelta);
 
 	CCollisionMgr::Collision_SpherePoint(m_vecObjectList[LOGIC_MONSTERWEAPON], m_vecObjectList[LOGIC_PLAYER]);
-	CCollisionMgr::Collision_SpherePoint(m_vecObjectList[LOGIC_PLAYERWEAPON], m_vecObjectList[LOGIC_OBJECT]);
-	CCollisionMgr::Collision_SphereSphere(m_vecObjectList[LOGIC_MONSTER], m_vecObjectList[LOGIC_PLAYERWEAPON]);
+	CCollisionMgr::Collision_SpherePoint(m_vecObjectList[LOGIC_PLAYERWEAPON], m_vecObjectList[LOGIC_MONSTER]);
+	//CCollisionMgr::Collision_SphereSphere(m_vecObjectList[LOGIC_MONSTER], m_vecObjectList[LOGIC_PLAYERWEAPON]);
 	CCollisionMgr::Collision_Push(m_vecObjectList[LOGIC_OBJECT], m_vecObjectList[LOGIC_PLAYER]);
 }
 

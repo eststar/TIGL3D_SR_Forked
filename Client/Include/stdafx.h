@@ -32,6 +32,8 @@
 #include <iostream>
 using namespace std;
 
+/* 0405_진원_난수 생성을 위한 헤더 추가 */
+#include <random>
 
 #include "Define.h"
 //#include "Extern.h"

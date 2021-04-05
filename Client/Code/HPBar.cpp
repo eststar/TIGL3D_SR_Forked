@@ -102,7 +102,7 @@ HRESULT CHPBar::Add_Component()
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 	}
 
-	pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>(Engine::Clone(RESOURCE_PLAYER, L"PlayerHP"));
+	pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>(Engine::Clone(RESOURCE_STAGE, L"Heart"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[Engine::COM_STATIC].emplace(L"Com_Texture", pComponent);
 

@@ -12,6 +12,9 @@ class CTransform;
 class CRenderer;
 
 END
+
+/* 0405_다영 BillBoard 함수 추가 */
+
 class CEffect : public Engine::CGameObject
 {
 private:
@@ -25,6 +28,7 @@ public:
 	virtual void			Render_Object()										override;
 private:
 	HRESULT		Add_Component(RESOURCEID eTextureID);
+	void		BillBoard();
 
 private:
 	Engine::CRcTex*			m_pBufferCom = nullptr;
@@ -36,6 +40,7 @@ private:
 	FRAME	m_tFrame;
 	_float	m_fSpeed;
 	_bool	m_bIsDead;
+	_float	m_fLifeTime;
 
 public:
 	static CEffect*		Create(LPDIRECT3DDEVICE9 pGraphicDev, _tchar* pObjTag, const _vec3* pPos, const _vec3* pScale, RESOURCEID eTextureID);

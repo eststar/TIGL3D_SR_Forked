@@ -14,6 +14,16 @@ Engine::CTransform::~CTransform()
 {
 }
 
+const _vec3 * CTransform::Get_Angle()
+{
+	return &m_vAngle;
+}
+
+const _vec3 * CTransform::Get_Scale()
+{
+	return &m_vScale;
+}
+
 //Get
 const	Engine::_vec3* CTransform::Get_Info(INFO eType)
 {
@@ -119,6 +129,28 @@ void CTransform::RotationX(_float fAngle) // 0401_πÃ¡§
 
 	D3DXMatrixScaling(&matScale, m_vScale.x, m_vScale.y, m_vScale.z);
 	D3DXMatrixRotationX(&matRotAxis, fAngle);
+	D3DXMatrixTranslation(&matTrans, m_vInfo[INFO_POS].x, m_vInfo[INFO_POS].y, m_vInfo[INFO_POS].z);
+
+	m_matWorld = matScale * matRotAxis * matTrans;
+}
+
+void CTransform::RotationY(_float fAngle)
+{
+	_matrix matScale, matRotAxis, matTrans;
+
+	D3DXMatrixScaling(&matScale, m_vScale.x, m_vScale.y, m_vScale.z);
+	D3DXMatrixRotationY(&matRotAxis, fAngle);
+	D3DXMatrixTranslation(&matTrans, m_vInfo[INFO_POS].x, m_vInfo[INFO_POS].y, m_vInfo[INFO_POS].z);
+
+	m_matWorld = matScale * matRotAxis * matTrans;
+}
+
+void CTransform::RotationZ(_float fAngle)
+{
+	_matrix matScale, matRotAxis, matTrans;
+
+	D3DXMatrixScaling(&matScale, m_vScale.x, m_vScale.y, m_vScale.z);
+	D3DXMatrixRotationZ(&matRotAxis, fAngle);
 	D3DXMatrixTranslation(&matTrans, m_vInfo[INFO_POS].x, m_vInfo[INFO_POS].y, m_vInfo[INFO_POS].z);
 
 	m_matWorld = matScale * matRotAxis * matTrans;

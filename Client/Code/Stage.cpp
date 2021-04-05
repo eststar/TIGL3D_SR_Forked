@@ -14,12 +14,19 @@
 #include "Terrain.h"
 #include "StaticCamera.h" 
 #include "Player.h"
-#include "Monster.h"
 #include "Bullet.h"
 #include "TestPyramid.h"
 
 #include "HPBar.h"
 #include "ItemStat.h"
+
+/* 0405_진원_몬스터 GameObject 추가 */
+#include "MiniOctopus.h"
+#include "Cannon.h"
+#include "WalkCannon.h"
+#include "Spider.h"
+#include "OctopusBoss.h"
+#include "Aim.h"
 
 USING(Engine)
 
@@ -60,6 +67,7 @@ Engine::_int CStage::Update_Scene(const _float& fTimeDelta)
 {
 	_int iExit = Engine::CScene::Update_Scene(fTimeDelta);
 
+
 	return iExit;
 }
 
@@ -88,18 +96,38 @@ HRESULT CStage::Ready_Resource(LPDIRECT3DDEVICE9& pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_Player", Engine::TEX_CUBE, L"../../Resource/Test/Texture/SkyBox/burger%d.dds", 4), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_PlayerGun", Engine::TEX_NORMAL, L"../../Resource/Texture/Player/Gun/%d.png", 2), E_FAIL);
 
+	//총알 이미지
 	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_BasicBullet", Engine::TEX_NORMAL, L"../../Resource/Texture/Player/Bullet/Basic_Bullet%d.png", 2), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_BigBullet", Engine::TEX_NORMAL, L"../../Resource/Texture/Player/Bullet/Big_Bullet%d.png", 2), E_FAIL); 
-	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_Ray", Engine::TEX_NORMAL, L"../../Resource/Texture/Player/Bullet/Ray.png"), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_Ray", Engine::TEX_NORMAL, L"../../Resource/Texture/Player/Bullet/Ray%d.png", 5), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_IceBullet", Engine::TEX_NORMAL, L"../../Resource/Texture/Player/Bullet/Ice_Bullet%d.png", 4), E_FAIL);
 	
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_FireBullet", Engine::TEX_NORMAL, L"../../Resource/Texture/Player/Bullet/Fire_Bullet%d.png", 4), E_FAIL);
+
 	//몬스터 이미지
-	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_Monster", Engine::TEX_NORMAL, L"../../Resource/Texture/Monster/MiniOctopus/png/%d.png", 2), E_FAIL);
+	/* 0405_진원_몬스터 이미지 추가 */
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_MiniOctopus", Engine::TEX_NORMAL, L"../../Resource/Texture/Monster/MiniOctopus/png/%d.png", 2), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_Cannon", Engine::TEX_NORMAL, L"../../Resource/Texture/Monster/Cannon/png/%d.png", 2), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_MonsterBullet", Engine::TEX_NORMAL, L"../../Resource/Texture/Monster/Bullet/png/%d.png", 2), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_OctopusBoss", Engine::TEX_NORMAL, L"../../Resource/Texture/Monster/OctopusBoss/png/%d.png", 4), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_WalkCannon", Engine::TEX_NORMAL, L"../../Resource/Texture/Monster/WalkCannon/png/%d.png", 4), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_Spider", Engine::TEX_NORMAL, L"../../Resource/Texture/Monster/Spider/png/%d.png", 6), E_FAIL);
+
+	//궁극기 이미지
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_Meteo", Engine::TEX_NORMAL, L"../../Resource/Texture/Player/Ultimate/Meteo%d.png", 6), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Texture_Thunder", Engine::TEX_NORMAL, L"../../Resource/Texture/Player/Ultimate/Thunder/%d.png", 5), E_FAIL);
+
+	/* 0405_다영 이미지 리소스 변경 및 추가 */
+	//Item
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Heart", Engine::TEX_NORMAL, L"../../Resource/Texture/Item/Heart/%d.png", 5), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Disk_S", Engine::TEX_NORMAL, L"../../Resource/Texture/Item/Disk_S/%d.png", 4), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Gem_S", Engine::TEX_NORMAL, L"../../Resource/Texture/Item/Gem_S/%d.png", 6), E_FAIL);
 
 	//UI
-	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_PLAYER, L"PlayerHP", Engine::TEX_NORMAL, L"../../Resource/Texture/UI/Heart/%d.png", 5), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_PLAYER, L"ItemStat", Engine::TEX_NORMAL, L"../../Resource/Texture/UI/ItemStat/%d.png", 13), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Number", Engine::TEX_NORMAL, L"../../Resource/Texture/UI/Number/%d.png", 11), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Aim", Engine::TEX_NORMAL, L"../../Resource/Texture/UI/Aim/%d.png", 4), E_FAIL);
+	//FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Weapon", Engine::TEX_NORMAL, L"../../Resource/Texture/UI/Weapon/%d.png", 7), E_FAIL);
+	//FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"WeaponBar", Engine::TEX_NORMAL, L"../../Resource/Texture/UI/WeaponBar/%d.png", 2), E_FAIL);
 	
 	//Effect
 	FAILED_CHECK_RETURN(Engine::Ready_Textures(pGraphicDev, RESOURCE_STAGE, L"Explosion", Engine::TEX_NORMAL, L"../../Resource/Texture/UI/Effect/Explosion/%d.png", 5), E_FAIL);
@@ -138,7 +166,27 @@ HRESULT CStage::Ready_Layer_GameLogic(LAYERID eLayerID)
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(LOGIC_PLAYER, pGameObject), E_FAIL);
 
-	pGameObject = CMonster::Create(m_pGraphicDev);
+	/* 0405_진원_일반 몬스터 추가 */
+	for (int i = 0; i < 5; ++i) {
+		pGameObject = CMiniOctopus::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(pGameObject, E_FAIL);
+		FAILED_CHECK_RETURN(pLayer->Add_GameObject(LOGIC_MONSTER, pGameObject), E_FAIL);
+
+		pGameObject = CCannon::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(pGameObject, E_FAIL);
+		FAILED_CHECK_RETURN(pLayer->Add_GameObject(LOGIC_MONSTER, pGameObject), E_FAIL);
+
+		pGameObject = CWalkCannon::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(pGameObject, E_FAIL);
+		FAILED_CHECK_RETURN(pLayer->Add_GameObject(LOGIC_MONSTER, pGameObject), E_FAIL);
+
+		pGameObject = CSpider::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(pGameObject, E_FAIL);
+		FAILED_CHECK_RETURN(pLayer->Add_GameObject(LOGIC_MONSTER, pGameObject), E_FAIL);
+	}
+
+	/* 0405_진원_보스 몬스터 추가 */
+	pGameObject = COctopusBoss::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(LOGIC_MONSTER, pGameObject), E_FAIL);
 
@@ -166,6 +214,19 @@ HRESULT CStage::Ready_Layer_UI(LAYERID eLayerID)
 	Engine::CGameObject*		pGameObject = nullptr;
 
 	pGameObject = CHPBar::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(UI_PLAYER, pGameObject), E_FAIL);
+
+	/* 0405_다영 ItemStat(Gem, Disk) 추가 */
+	pGameObject = CItemStat::Create(m_pGraphicDev, L"Gem_S", &_vec3(0.65f, 0.85f, 0.f));
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(UI_PLAYER, pGameObject), E_FAIL);
+
+	pGameObject = CItemStat::Create(m_pGraphicDev, L"Disk_S", &_vec3(0.65f, 0.7f, 0.f));
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(UI_PLAYER, pGameObject), E_FAIL);
+
+	pGameObject = CAim::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(UI_PLAYER, pGameObject), E_FAIL);
 

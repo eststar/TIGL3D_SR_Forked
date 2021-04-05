@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "BigBullet.h"
 
+/* 0405_다영 #include 헤더 추가 */
+#include "Effect.h"
+
 #include "Export_Function.h"
 
 USING(Engine)
@@ -49,7 +52,14 @@ HRESULT CBigBullet::Ready_Object()
 _int CBigBullet::Update_Object(const _float & fTimeDelta)
 {
 	if (m_bIsDead)
+	{
+		/* 0405_다영 Effect 생성 추가 */
+
+		CGameObject* pGameObject = CEffect::Create(m_pGraphicDev, L"Explosion", m_pTransformCom->Get_Info(INFO_POS), &_vec3(2.f, 2.f, 2.f), RESOURCE_STAGE);
+		Engine::Add_GameObject(LAYER_UI, UI_EFFECT, pGameObject);
+
 		return OBJ_DEAD;
+	}
 
 	CGameObject::Update_Object(fTimeDelta);
 	m_pRendererCom->Add_RenderGroup(RENDER_ALPHA, this);
@@ -118,7 +128,7 @@ void CBigBullet::BillBoard()
 	D3DXMatrixIdentity(&matView);
 	D3DXMatrixIdentity(&matScale);
 
-	matScale *= 0.05f;
+	D3DXMatrixScaling(&matScale, 1.f, 1.f, 1.f);
 	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matView);
 	memset(&matView._41, 0, sizeof(_vec3));
 	D3DXMatrixInverse(&matView, 0, &matView);

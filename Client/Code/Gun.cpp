@@ -73,9 +73,7 @@ _int CGun::Update_Object(const _float & fTimeDelta)
 		break;
 	case SHOOTING:
 		m_fShootAngle = -10;
-		static float a = 0.f;
-		a -= 45.f * fTimeDelta;
-		m_pTransformCom->RotationX(D3DXToRadian(m_fShootAngle));
+		m_pTransformCom->RotationZ(D3DXToRadian(m_fShootAngle));
 		break;
 	}
 

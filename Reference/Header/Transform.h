@@ -14,9 +14,15 @@ private:
 
 public:
 	//Get
+
+	/* 0405_다영 Get_Angle(), Get_Scale() 함수 추가 */
+	const	_vec3*		Get_Angle();
+	const	_vec3*		Get_Scale();
+
 	const	_vec3*		Get_Info(INFO eType);
 	void				Get_Info(INFO eType, _vec3* pInfo);
 	const _matrix*		Get_WorldMatrix();
+
 
 	//Set
 	void				Set_Matrix(const _matrix* pMatWorld);
@@ -34,6 +40,8 @@ public:
 	void				Chase_Target(const _vec3* pTargetPos, const _float& fSpeed, const _float& fTimeDelta);
 	void				RotationAxis(_vec3* vAxis, _float fAngle); // 0401_미정
 	void				RotationX(_float fAngle); // 0401_미정
+	void				RotationY(_float fAngle); // 0401_미정
+	void				RotationZ(_float fAngle); // 0401_미정
 
 public:
 	//General

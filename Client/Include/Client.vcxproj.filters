@@ -92,9 +92,6 @@
     <Filter Include="03.GameObject\06.PlayerWeapon\01.Bullet\02.Ice">
       <UniqueIdentifier>{0214ab4f-4424-429e-b3a4-becd6ca88f48}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.GameObject\06.PlayerWeapon\01.Bullet\99.Ray">
-      <UniqueIdentifier>{5d2ff4fa-ab79-46b8-a241-1503cbba9b41}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03.GameObject\08.Object\00.Pyramid">
       <UniqueIdentifier>{5349bf73-933c-417f-884e-3144008f97e6}</UniqueIdentifier>
     </Filter>
@@ -118,6 +115,51 @@
     </Filter>
     <Filter Include="03.GameObject\09.UI\UI_Player\01.ItemStat">
       <UniqueIdentifier>{e7be6274-fe19-42bc-a82b-a05edbdff69e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\06.PlayerWeapon\01.Bullet\03.Ray">
+      <UniqueIdentifier>{5d2ff4fa-ab79-46b8-a241-1503cbba9b41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\06.PlayerWeapon\02.Ultimate">
+      <UniqueIdentifier>{112639c0-5ba3-4633-920e-7f68cf47743a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\06.PlayerWeapon\02.Ultimate\02. Thunder">
+      <UniqueIdentifier>{7a6d433d-b33e-47e2-a865-2c98f92701a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\06.PlayerWeapon\02.Ultimate\01. Ray">
+      <UniqueIdentifier>{ff017e66-5393-4615-84b1-253302a3876a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\06.PlayerWeapon\02.Ultimate\03. Meteo">
+      <UniqueIdentifier>{e0715b98-05f8-4b75-8ff7-3235f1df1e91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\06.PlayerWeapon\01.Bullet\05. Fire">
+      <UniqueIdentifier>{cd9bf42b-c6e3-4737-9886-795ba80ff3aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\06.PlayerWeapon\01.Bullet\04. Spread">
+      <UniqueIdentifier>{e82da5ce-90f0-45bd-941e-89d956d6aaa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\02.Monster\00.FirstTheme">
+      <UniqueIdentifier>{d1b9b126-3c01-4ff5-8d6f-622fccb1e1bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\02.Monster\00.FirstTheme\00.MiniOctopus">
+      <UniqueIdentifier>{dbf0e5ee-d742-4daa-872d-b4e712c87808}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\02.Monster\00.FirstTheme\01.Cannon">
+      <UniqueIdentifier>{a0c2ba76-b54f-4722-88b5-aecf0e9e4358}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\02.Monster\00.FirstTheme\02.WalkCannon">
+      <UniqueIdentifier>{b370b014-6131-4c97-89b7-880781b7d512}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\02.Monster\00.FirstTheme\03.Spider">
+      <UniqueIdentifier>{1ecc35ef-b03a-4f1b-a50a-4ed9f05b91b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\02.Monster\00.FirstTheme\04.OctopusBoss">
+      <UniqueIdentifier>{e473da52-adb6-47bb-a149-23ab678dc8b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\09.UI\UI_Player\02.WeaponBar">
+      <UniqueIdentifier>{76f0095a-e505-42c1-a42c-a48233f081c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.GameObject\09.UI\UI_Player\03.Aim">
+      <UniqueIdentifier>{d2a0f30e-5670-4e46-9465-5873e6e6bdb2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -163,9 +205,6 @@
     <ClInclude Include="..\Code\DynamicCamera.h">
       <Filter>03.GameObject\03.Camera\01.DynamicCamera</Filter>
     </ClInclude>
-    <ClInclude Include="..\Code\Monster.h">
-      <Filter>03.GameObject\02.Monster</Filter>
-    </ClInclude>
     <ClInclude Include="..\Code\LogicLayer.h">
       <Filter>02.Layer\01.LogicLayer</Filter>
     </ClInclude>
@@ -181,9 +220,6 @@
     <ClInclude Include="..\Code\CollisionMgr.h">
       <Filter>98.Manager\00.CollisionMgr</Filter>
     </ClInclude>
-    <ClInclude Include="..\Code\MonsterBullet.h">
-      <Filter>03.GameObject\07.MosterWeapon</Filter>
-    </ClInclude>
     <ClInclude Include="..\Code\TestPyramid.h">
       <Filter>03.GameObject\08.Object\TestPyramid</Filter>
     </ClInclude>
@@ -196,9 +232,6 @@
     <ClInclude Include="..\Code\IceBullet.h">
       <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\02.Ice</Filter>
     </ClInclude>
-    <ClInclude Include="..\Code\Ray.h">
-      <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\99.Ray</Filter>
-    </ClInclude>
     <ClInclude Include="..\Code\Effect.h">
       <Filter>03.GameObject\10.Effect</Filter>
     </ClInclude>
@@ -207,6 +240,48 @@
     </ClInclude>
     <ClInclude Include="..\Code\HPBar.h">
       <Filter>03.GameObject\09.UI\UI_Player\00.HPBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\SpreadBullet.h">
+      <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\04. Spread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\FireBullet.h">
+      <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\05. Fire</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\RayBullet.h">
+      <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\03.Ray</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\Ray.h">
+      <Filter>03.GameObject\06.PlayerWeapon\02.Ultimate\01. Ray</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\Meteo.h">
+      <Filter>03.GameObject\06.PlayerWeapon\02.Ultimate\03. Meteo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\Thunder.h">
+      <Filter>03.GameObject\06.PlayerWeapon\02.Ultimate\02. Thunder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\MiniOctopus.h">
+      <Filter>03.GameObject\02.Monster\00.FirstTheme\00.MiniOctopus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\Cannon.h">
+      <Filter>03.GameObject\02.Monster\00.FirstTheme\01.Cannon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\WalkCannon.h">
+      <Filter>03.GameObject\02.Monster\00.FirstTheme\02.WalkCannon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\Spider.h">
+      <Filter>03.GameObject\02.Monster\00.FirstTheme\03.Spider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\OctopusBoss.h">
+      <Filter>03.GameObject\02.Monster\00.FirstTheme\04.OctopusBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\MonsterBullet.h">
+      <Filter>03.GameObject\07.MosterWeapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\ItemStat.h">
+      <Filter>03.GameObject\09.UI\UI_Player\01.ItemStat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\Aim.h">
+      <Filter>03.GameObject\09.UI\UI_Player\03.Aim</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -243,9 +318,6 @@
     <ClCompile Include="..\Code\DynamicCamera.cpp">
       <Filter>03.GameObject\03.Camera\01.DynamicCamera</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Monster.cpp">
-      <Filter>03.GameObject\02.Monster</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\LogicLayer.cpp">
       <Filter>02.Layer\01.LogicLayer</Filter>
     </ClCompile>
@@ -261,9 +333,6 @@
     <ClCompile Include="..\Code\CollisionMgr.cpp">
       <Filter>98.Manager\00.CollisionMgr</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\MonsterBullet.cpp">
-      <Filter>03.GameObject\07.MosterWeapon</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\TestPyramid.cpp">
       <Filter>03.GameObject\08.Object\TestPyramid</Filter>
     </ClCompile>
@@ -276,9 +345,6 @@
     <ClCompile Include="..\Code\IceBullet.cpp">
       <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\02.Ice</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Ray.cpp">
-      <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\99.Ray</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\Effect.cpp">
       <Filter>03.GameObject\10.Effect</Filter>
     </ClCompile>
@@ -287,6 +353,48 @@
     </ClCompile>
     <ClCompile Include="..\Code\HPBar.cpp">
       <Filter>03.GameObject\09.UI\UI_Player\00.HPBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SpreadBullet.cpp">
+      <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\04. Spread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\FireBullet.cpp">
+      <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\05. Fire</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\RayBullet.cpp">
+      <Filter>03.GameObject\06.PlayerWeapon\01.Bullet\03.Ray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Ray.cpp">
+      <Filter>03.GameObject\06.PlayerWeapon\02.Ultimate\01. Ray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Meteo.cpp">
+      <Filter>03.GameObject\06.PlayerWeapon\02.Ultimate\03. Meteo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Thunder.cpp">
+      <Filter>03.GameObject\06.PlayerWeapon\02.Ultimate\02. Thunder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MiniOctopus.cpp">
+      <Filter>03.GameObject\02.Monster\00.FirstTheme\00.MiniOctopus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Cannon.cpp">
+      <Filter>03.GameObject\02.Monster\00.FirstTheme\01.Cannon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\WalkCannon.cpp">
+      <Filter>03.GameObject\02.Monster\00.FirstTheme\02.WalkCannon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Spider.cpp">
+      <Filter>03.GameObject\02.Monster\00.FirstTheme\03.Spider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\OctopusBoss.cpp">
+      <Filter>03.GameObject\02.Monster\00.FirstTheme\04.OctopusBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MonsterBullet.cpp">
+      <Filter>03.GameObject\07.MosterWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ItemStat.cpp">
+      <Filter>03.GameObject\09.UI\UI_Player\01.ItemStat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Aim.cpp">
+      <Filter>03.GameObject\09.UI\UI_Player\03.Aim</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

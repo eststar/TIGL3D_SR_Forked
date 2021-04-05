@@ -21,17 +21,17 @@ HRESULT CBullet::Ready_Object()
 {
 	m_pObjTag = L"PlayerBullet";
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	
+
 	m_pPlayerTransformCom = dynamic_cast<CTransform*>(Engine::Get_Component(LAYER_LOGIC, LOGIC_PLAYER, L"Player", L"Com_Transform", COM_DYNAMIC));
 	FAILED_CHECK_RETURN(m_pPlayerTransformCom, E_FAIL);
-	
+
 	_vec3 vPos, vLook, vRight, vUp;
 	m_pPlayerTransformCom->Get_Info(INFO_POS, &vPos);
 	m_pPlayerTransformCom->Get_Info(INFO_LOOK, &m_vLook);
 	m_pPlayerTransformCom->Get_Info(INFO_RIGHT, &vRight);
 	m_pPlayerTransformCom->Get_Info(INFO_UP, &vUp);
 	m_pTransformCom->Set_Scale(&_vec3(0.2f, 0.2f, 0.2f));
-	
+
 	m_pTransformCom->Set_Info(INFO_LOOK, &m_vLook);
 
 
@@ -48,7 +48,7 @@ HRESULT CBullet::Ready_Object()
 
 _int CBullet::Update_Object(const _float & fTimeDelta)
 {
-	if(m_bIsDead)
+	if (m_bIsDead)
 		return OBJ_DEAD;
 
 	CGameObject::Update_Object(fTimeDelta);
@@ -100,7 +100,7 @@ HRESULT CBullet::Add_Component()
 	pComponent = m_pBufferCom = dynamic_cast<Engine::CRcTex*>(Engine::Clone(RESOURCE_STATIC, L"Buffer_RcTex"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[Engine::COM_STATIC].emplace(L"Com_Buffer", pComponent);
-	
+
 	pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>(Engine::Clone(RESOURCE_STAGE, L"Texture_BasicBullet"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[Engine::COM_STATIC].emplace(L"Com_Texture", pComponent);
@@ -118,13 +118,13 @@ void CBullet::BillBoard()
 	D3DXMatrixIdentity(&matView);
 	D3DXMatrixIdentity(&matScale);
 
-	matScale *= 0.05f;
+	D3DXMatrixScaling(&matScale, 1.f, 1.f, 1.f);
 	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matView);
 	memset(&matView._41, 0, sizeof(_vec3));
 	D3DXMatrixInverse(&matView, 0, &matView);
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(Engine::INFO_POS, &vPos);
-	_vec3 BillPos = {vPos.x, vPos.y, vPos.z};
+	_vec3 BillPos = { vPos.x, vPos.y, vPos.z };
 	memcpy(&matView._41, &BillPos, sizeof(_vec3));
 
 	m_pTransformCom->Set_Matrix(&(matScale*matView));

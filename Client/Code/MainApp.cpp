@@ -21,7 +21,7 @@ HRESULT CMainApp::Ready_MainApp()
 
 	FAILED_CHECK_RETURN(Ready_Logo(m_pGraphicDev, &m_pManagementClass), E_FAIL);
 
-
+	ShowCursor(FALSE);
 	//m_pGraphicDev->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
 	//m_pGraphicDev->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
 

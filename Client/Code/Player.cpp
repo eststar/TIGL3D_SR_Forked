@@ -9,9 +9,11 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CCreature(pGraphicDev)
 	, m_bIsJump(false)
 	, m_fTime(0.f)
+	, m_fMeteoTime(0.f)
 	, m_bHasGun(true)
 	, m_eGunSkill(FASTBULLET)
 	, m_bSkillOn(false)
+	, m_bUltimateOn(false)
 {
 
 }
@@ -39,11 +41,11 @@ void CPlayer::Free()
 HRESULT CPlayer::Ready_Object()
 {
 	m_pObjTag = L"Player";
-	
+
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	
+
 	m_pTransformCom->Set_Pos(&_vec3(1.f, 0.f, 0.f));
-	
+
 	return S_OK;
 }
 
@@ -64,6 +66,7 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 
 	SetUp_OnTerrain();
 	Key_Input(fTimeDelta);
+	Ultimate(fTimeDelta);
 	CGameObject::Update_Object(fTimeDelta);
 
 	m_pRendererCom->Add_RenderGroup(RENDER_ALPHA, this);
@@ -145,12 +148,12 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 		dynamic_cast<CGun*>(m_pGun)->Set_State(CGun::WALKING);
 		m_pTransformCom->Move_Pos(&m_vLook, fTimeDelta, -15.f);
 	}
-		//왼쪽 게걸음
+	//왼쪽 게걸음
 	if (Engine::Key_Pressing(KEY_A)) {
 		dynamic_cast<CGun*>(m_pGun)->Set_State(CGun::WALKING);
 		m_pTransformCom->Move_Pos(&vRight, fTimeDelta, -15.f);
 	}
-		//오른족 게걸음
+	//오른족 게걸음
 	if (Engine::Key_Pressing(KEY_D)) {
 		dynamic_cast<CGun*>(m_pGun)->Set_State(CGun::WALKING);
 		m_pTransformCom->Move_Pos(&vRight, fTimeDelta, 15.f);
@@ -176,55 +179,53 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 		dynamic_cast<CGun*>(m_pGun)->Gun_Off();
 	}
 
-	// 0401_미정
-	// 버튼 짜기 귀찮아서 무식하게 박았읍니다 머리 박겠읍니다 죄송합니다 히ㅣㅎ....
-	if (m_eGunSkill == FASTBULLET&&::Key_Down(KEY_Q)) {
-		m_eGunSkill = ICE;
+	if (Engine::Key_Pressing(KEY_C)) {  // 궁극기 버튼
+		m_bUltimateOn = true;
 	}
-	if (m_eGunSkill == ICE&&::Key_Down(KEY_Q)) {
-		m_eGunSkill = BOMB;
-	}
-	if (m_eGunSkill == BOMB&&::Key_Down(KEY_Q)) {
-		m_eGunSkill = BARRIER;
-	}
-	if (m_eGunSkill == BARRIER&&::Key_Down(KEY_Q)) {
-		m_eGunSkill = SHOTGUN;
-	}
-	if (m_eGunSkill == SHOTGUN&&::Key_Down(KEY_Q)) {
-		m_eGunSkill = FIRE;
-	}
-	if (m_eGunSkill == FIRE&&::Key_Down(KEY_Q)) {
-		m_eGunSkill = RAY;
-	}
-	if (m_eGunSkill == RAY&&::Key_Down(KEY_Q)) {
-		m_eGunSkill = BIGBULLET;
-	}
-	if (m_eGunSkill == BIGBULLET&&::Key_Down(KEY_Q)) {
-		m_eGunSkill = FASTBULLET;
+	if (Engine::Key_Up(KEY_C)) {  // 궁극기 버튼
+		m_bUltimateOn = false;
 	}
 
-	if (m_eGunSkill == FASTBULLET&&::Key_Down(KEY_E)) {
-		m_eGunSkill = BIGBULLET;
-	}
-	if (m_eGunSkill == BIGBULLET&&::Key_Down(KEY_E)) {
-		m_eGunSkill = RAY;
-	}
-	if (m_eGunSkill == RAY&&::Key_Down(KEY_E)) {
-		m_eGunSkill = FIRE;
-	}
-	if (m_eGunSkill == FIRE&&::Key_Down(KEY_E)) {
-		m_eGunSkill = SHOTGUN;
-	}
-	if (m_eGunSkill == SHOTGUN&&::Key_Down(KEY_E)) {
-		m_eGunSkill = BARRIER;
-	}
-	if (m_eGunSkill == BARRIER&&::Key_Down(KEY_E)) {
-		m_eGunSkill = BOMB;
-	}
-	if (m_eGunSkill == BOMB&&::Key_Down(KEY_E)) {
+	if (m_eGunSkill == FASTBULLET&&Engine::Key_Down(KEY_Q)) {
 		m_eGunSkill = ICE;
 	}
-	if (m_eGunSkill == ICE&&::Key_Down(KEY_E)) {
+	if (m_eGunSkill == ICE&&Engine::Key_Down(KEY_Q)) {
+		m_eGunSkill = BARRIER;
+	}
+	if (m_eGunSkill == BARRIER&&Engine::Key_Down(KEY_Q)) {
+		m_eGunSkill = SHOTGUN;
+	}
+	if (m_eGunSkill == SHOTGUN&&Engine::Key_Down(KEY_Q)) {
+		m_eGunSkill = FIRE;
+	}
+	if (m_eGunSkill == FIRE&&Engine::Key_Down(KEY_Q)) {
+		m_eGunSkill = RAY;
+	}
+	if (m_eGunSkill == RAY&&Engine::Key_Down(KEY_Q)) {
+		m_eGunSkill = BIGBULLET;
+	}
+	if (m_eGunSkill == BIGBULLET&&Engine::Key_Down(KEY_Q)) {
+		m_eGunSkill = FASTBULLET;
+	}
+	if (m_eGunSkill == FASTBULLET&&Engine::Key_Down(KEY_E)) {
+		m_eGunSkill = BIGBULLET;
+	}
+	if (m_eGunSkill == BIGBULLET&&Engine::Key_Down(KEY_E)) {
+		m_eGunSkill = RAY;
+	}
+	if (m_eGunSkill == RAY&&Engine::Key_Down(KEY_E)) {
+		m_eGunSkill = FIRE;
+	}
+	if (m_eGunSkill == FIRE&&Engine::Key_Down(KEY_E)) {
+		m_eGunSkill = SHOTGUN;
+	}
+	if (m_eGunSkill == SHOTGUN&&Engine::Key_Down(KEY_E)) {
+		m_eGunSkill = BARRIER;
+	}
+	if (m_eGunSkill == BARRIER&&Engine::Key_Down(KEY_E)) {
+		m_eGunSkill = ICE;
+	}
+	if (m_eGunSkill == ICE&&Engine::Key_Down(KEY_E)) {
 		m_eGunSkill = FASTBULLET;
 	}
 
@@ -248,23 +249,42 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 				}
 			}
 			break;
-		case RAY: // 미래의 궁극기
+		case RAY:
 			if (Engine::Key_Pressing(VK_LBUTTON)) {
-				dynamic_cast<CGun*>(m_pGun)->Set_State(CGun::SHOOTING);
-				Create_Ray();
+				if (m_fTime >= 1.2f) {
+					dynamic_cast<CGun*>(m_pGun)->Set_State(CGun::SHOOTING);
+					Create_RayBullet();
+					m_fTime = 0.f;
+				}
 			}
 			break;
 		case FIRE:
+			if (Engine::Key_Pressing(VK_LBUTTON))
+				if (m_fTime >= 0.05f) {
+					Create_FireBullet();
+					m_fTime = 0.f;
+				}
 			break;
 		case SHOTGUN:
+			if (Engine::Key_Pressing(VK_LBUTTON)) {
+				if (m_fTime >= 0.4f) {
+					dynamic_cast<CGun*>(m_pGun)->Set_State(CGun::SHOOTING);
+					Create_SpreadBullet(0.6f);
+					Create_SpreadBullet(0.4f);
+					Create_SpreadBullet(0.2f);
+					Create_SpreadBullet(0.f);
+					Create_SpreadBullet(-0.2f);
+					Create_SpreadBullet(-0.4f);
+					Create_SpreadBullet(-0.6f);
+					m_fTime = 0.f;
+				}
+			}
 			break;
 		case BARRIER:
 			break;
-		case BOMB:
-			break;
 		case ICE:
 			if (Engine::Key_Pressing(VK_LBUTTON)) {
-				if (m_fTime >= 0.7f) {
+				if (m_fTime >= 0.4f) {
 					dynamic_cast<CGun*>(m_pGun)->Set_State(CGun::SHOOTING);
 					Create_IceBullet();
 					m_fTime = 0.f;
@@ -273,7 +293,8 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 			break;
 		}
 	}
-	//cout << m_bSkillOn << endl;
+
+
 	//cout << m_eGunSkill << endl;
 	Mouse_Fix();
 }
@@ -288,7 +309,7 @@ void CPlayer::SetUp_OnTerrain()
 	NULL_CHECK(pTerrainBufferCom);
 
 	fHeight = m_pCalculatorCom->Compute_HeightOnTerrain(&vPos, pTerrainBufferCom->Get_VtxPos(), VTXCNTX, VTXCNTZ, VTXITV);
-	m_pTransformCom->Set_Pos(&_vec3(vPos.x, fHeight +5.f, vPos.z));
+	m_pTransformCom->Set_Pos(&_vec3(vPos.x, fHeight + 5.f, vPos.z));
 }
 
 void CPlayer::Mouse_Fix()
@@ -323,10 +344,31 @@ HRESULT CPlayer::Create_BigBullet()
 
 HRESULT CPlayer::Create_Ray()
 {
+	// 궁극기로 사용예정
 	Engine::CGameObject*		pGameObject = nullptr;
 	pGameObject = CRay::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Add_GameObject(LAYER_LOGIC, LOGIC_PLAYERWEAPON, pGameObject), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Add_GameObject(LAYER_LOGIC, LOGIC_PLAYERULTIMATE, pGameObject), E_FAIL);
+	return S_OK;
+}
+
+HRESULT CPlayer::Create_Meteo(_vec3& vPos)
+{
+	Engine::CGameObject*		pGameObject = nullptr;
+	pGameObject = CMeteo::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	dynamic_cast<CMeteo*>(pGameObject)->Set_Pos(vPos);
+	FAILED_CHECK_RETURN(Engine::Add_GameObject(LAYER_LOGIC, LOGIC_PLAYERULTIMATE, pGameObject), E_FAIL);
+	return S_OK;
+}
+
+HRESULT CPlayer::Create_Thunder(_vec3 & vPos)
+{
+	Engine::CGameObject*		pGameObject = nullptr;
+	pGameObject = CThunder::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	dynamic_cast<CThunder*>(pGameObject)->Set_Pos(vPos);
+	FAILED_CHECK_RETURN(Engine::Add_GameObject(LAYER_LOGIC, LOGIC_PLAYERULTIMATE, pGameObject), E_FAIL);
 	return S_OK;
 }
 
@@ -336,5 +378,119 @@ HRESULT CPlayer::Create_IceBullet()
 	pGameObject = CIceBullet::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Add_GameObject(LAYER_LOGIC, LOGIC_PLAYERWEAPON, pGameObject), E_FAIL);
+	return S_OK;
+}
+
+HRESULT CPlayer::Create_RayBullet()
+{
+	Engine::CGameObject*		pGameObject = nullptr;
+	pGameObject = CRayBullet::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Add_GameObject(LAYER_LOGIC, LOGIC_PLAYERWEAPON, pGameObject), E_FAIL);
+	return S_OK;
+}
+
+HRESULT CPlayer::Create_SpreadBullet(const _float fAngle)
+{
+	Engine::CGameObject*		pGameObject = nullptr;
+	pGameObject = CSpreadBullet::Create(m_pGraphicDev, fAngle);
+	dynamic_cast<CSpreadBullet*>(pGameObject)->Set_Angle(fAngle);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Add_GameObject(LAYER_LOGIC, LOGIC_PLAYERWEAPON, pGameObject), E_FAIL);
+	return S_OK;
+}
+
+HRESULT CPlayer::Create_FireBullet()
+{
+	Engine::CGameObject*		pGameObject = nullptr;
+	pGameObject = CFireBullet::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Add_GameObject(LAYER_LOGIC, LOGIC_PLAYERWEAPON, pGameObject), E_FAIL);
+	return S_OK;
+}
+
+HRESULT CPlayer::Ultimate(const _float& fTimeDelta)
+{
+	if (m_bUltimateOn) {
+		switch (m_eGunSkill) {
+		case FASTBULLET:
+			break;
+		case BIGBULLET:
+			if (m_fTime >= 0.2f) {
+				Create_Thunder(_vec3(50.f, 55.f, 50.f));
+				m_fTime = 0.f;
+			}
+			break;
+		case RAY:
+			m_fMeteoTime += fTimeDelta;
+			if (m_fMeteoTime >= 0.1f)
+				Create_Ray();
+			if (m_fMeteoTime >= 0.05f)
+				Create_Ray();
+			if (m_fMeteoTime >= 0.1f)
+				Create_Ray();
+			if (m_fMeteoTime >= 0.15f)
+				Create_Ray();
+			if (m_fMeteoTime >= 0.2f)
+				Create_Ray();
+			if (m_fMeteoTime >= 0.25f)
+				Create_Ray();
+			if (m_fMeteoTime >= 0.3f)
+				Create_Ray();
+			if (m_fMeteoTime >= 0.35f)
+				Create_Ray();
+			if (m_fMeteoTime >= 0.4f)
+				Create_Ray();
+			if (m_fMeteoTime >= 0.45f)
+				Create_Ray();
+			if (m_fMeteoTime >= 0.5f)
+				Create_Ray();
+			if (m_fMeteoTime >= 0.55f)
+				Create_Ray();
+			if (m_fMeteoTime >= 0.6f)
+				Create_Ray();
+			if (m_fMeteoTime >= 0.65f)
+				Create_Ray();
+			if (m_fMeteoTime >= 0.7f)
+				Create_Ray();
+			if (m_fMeteoTime >= 0.75f)
+				Create_Ray();
+			break;
+		case FIRE:
+			m_fMeteoTime += fTimeDelta;
+			if (m_fTime >= 1.2f) {
+				if (m_fMeteoTime >= 0.2f)
+					Create_Meteo(_vec3(50.f, 30.f, 50.f));
+				if (m_fMeteoTime >= 0.2f)
+					Create_Meteo(_vec3(52.f, 32.f, 42.f));
+				if (m_fMeteoTime >= 0.3f)
+					Create_Meteo(_vec3(48.f, 28.f, 49.f));
+				if (m_fMeteoTime >= 0.4f)
+					Create_Meteo(_vec3(50.f, 35.f, 50.f));
+				if (m_fMeteoTime >= 0.4f)
+					Create_Meteo(_vec3(48.f, 28.f, 50.f));
+				if (m_fMeteoTime >= 0.5f)
+					Create_Meteo(_vec3(50.f, 35.f, 50.f));
+				if (m_fMeteoTime >= 0.6f)
+					Create_Meteo(_vec3(51.f, 31.f, 52.f));
+				if (m_fMeteoTime >= 0.6f)
+					Create_Meteo(_vec3(49.f, 30.f, 48.f));
+				if (m_fMeteoTime >= 0.7f)
+					Create_Meteo(_vec3(50.f, 34.f, 46.f));
+				if (m_fMeteoTime >= 0.8f) {
+					Create_Meteo(_vec3(46.f, 27.f, 52.f));
+				}
+				m_fTime = 0.f;
+			}
+			break;
+		case SHOTGUN:
+			break;
+		case BARRIER:
+			break;
+		case ICE:
+			break;
+		}
+		m_bUltimateOn = false;
+	}
 	return S_OK;
 }
